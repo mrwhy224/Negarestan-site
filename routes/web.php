@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostCategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,6 +18,13 @@ Route::prefix('panel')->group(function () {
         Route::get('/add', [\App\Http\Controllers\PostController::class, 'add'])->name('add');
         Route::get('/category', [\App\Http\Controllers\PostController::class, 'category'])->name('category');
         Route::get('/comment', [\App\Http\Controllers\PostController::class, 'comment'])->name('comment');
+
+
+        Route::get('category', [PostCategoryController::class, 'index'])->name('category');
+        Route::post('category', [PostCategoryController::class, 'store'])->name('storeCategory');
+        Route::put('category/{category}', [PostCategoryController::class, 'update'])->name('updateCategory');
+        Route::delete('category/{category}', [PostCategoryController::class, 'destroy'])->name('deleteCategory');
+
     });
 
     Route::prefix('quiz')->name('quiz.')->group(function () {
