@@ -15,9 +15,13 @@
     <style>
         body {
             font-family: 'Vazirmatn', sans-serif;
-            background-color: #f1f5f9; /* slate-100 */
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            background-color: #f8fafc;
+            background-image: radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0);
+            background-size: 20px 20px;
         }
-        h1, h2, h3 {
+        h1, h2, h3, .fantasy-font {
             font-family: 'Lalezar', cursive;
         }
         /* استایل سفارشی برای چک‌باکس و دکمه رادیویی */
@@ -33,8 +37,10 @@
     <!-- Header Navigation -->
     <header class="bg-white/80 backdrop-blur-sm shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4 flex items-center justify-center">
-             <a href="index.html" class="text-3xl text-cyan-700 shrink-0">آموزشگاه آینده</a>
-             
+            <a href="{{ route('home') }}">
+                <img src="/logo.png" alt="logo" width="90">
+            </a>
+
         </div>
     </header>
 
@@ -46,7 +52,7 @@
                     <div class="p-8">
                         <h2 id="quiz-title" class="text-3xl font-bold text-center text-cyan-800 mb-2"></h2>
                         <p class="text-center text-gray-500 mb-8">لطفا به سوالات زیر پاسخ دهید.</p>
-                        
+
                         <!-- Progress Bar -->
                         <div class="w-full bg-gray-200 rounded-full h-2.5 mb-8">
                             <div id="progress-bar" class="bg-cyan-600 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
@@ -74,7 +80,7 @@
             </div>
         </section>
     </main>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const quizTitle = document.getElementById('quiz-title');
@@ -118,7 +124,7 @@
             function renderQuestion() {
                 const questionData = quizData.questions[currentQuestionIndex];
                 let optionsHTML = '';
-                
+
                 questionData.options.forEach((option) => {
                     const inputType = questionData.type === 'multiple' ? 'checkbox' : 'radio';
                     const inputClass = questionData.type === 'multiple' ? 'form-checkbox' : 'form-radio';
@@ -173,7 +179,7 @@
 
             function updateNavigation() {
                 prevBtn.disabled = currentQuestionIndex === 0;
-                
+
                 if (currentQuestionIndex === quizData.questions.length - 1) {
                     nextBtn.classList.add('hidden');
                     submitBtn.classList.remove('hidden');
@@ -196,11 +202,11 @@
                     renderQuestion();
                 }
             });
-            
+
             submitBtn.addEventListener('click', () => {
                 // Update progress bar to 100% on submit
                 progressBar.style.width = `100%`;
-                
+
                 // Show thank you message after a short delay
                 setTimeout(() => {
                     quizWrapper.classList.add('hidden');

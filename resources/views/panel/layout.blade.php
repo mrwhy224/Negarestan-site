@@ -55,7 +55,7 @@
                 <img src="/logo.png" alt="logo" class="h-16 w-auto bg-white p-1 rounded">
             </div>
 
-            <nav class="mt-4 px-4" x-data="{ openMenu: 'post' }">
+            <nav class="mt-4 px-4" x-data="{ openMenu: '{{ request()->routeIs('post.*') ? 'post' : (request()->routeIs('quiz.*') ? 'quiz' : '') }}' }">
                 <a href="{{ route('dashboards') }}" class="flex items-center px-4 py-2.5 rounded-lg {{ request()->routeIs('dashboards') ? 'text-gray-200 bg-[var(--brand-blue-light)]' : 'text-gray-300 hover:bg-[var(--brand-blue-light)]' }}">
                     <i class="fas fa-tachometer-alt w-6 text-center text-lg"></i>
                     <span class="mr-3">داشبورد</span>
@@ -83,8 +83,7 @@
                         <i class="fas" :class="openMenu === 'quiz' ? 'fa-chevron-down' : 'fa-chevron-left'"></i>
                     </button>
                     <div x-show="openMenu === 'quiz'" x-cloak class="mt-2 mr-6 space-y-2 border-r-2 border-gray-500 pr-4">
-                        <a href="#" class="block py-2 text-gray-400 hover:text-white">لیست</a>
-                        <a href="#" class="block py-2 text-gray-400 hover:text-white">افزودن</a>
+                        <a href="{{ route('quiz.list') }}" class="block py-2 text-gray-400 {{ request()->routeIs('quiz.list') ? 'text-white' : 'hover:text-white' }}">لیست</a>
                         <a href="#" class="block py-2 text-gray-400 hover:text-white">نتایج</a>
                     </div>
                 </div>
@@ -133,4 +132,5 @@
         </div>
     </div>
 </body>
+@stack('page_js')
 </html>

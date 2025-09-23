@@ -22,10 +22,22 @@ Route::prefix('panel')->group(function () {
     Route::prefix('quiz')->name('quiz.')->group(function () {
         Route::get('/', [\App\Http\Controllers\QuizController::class, 'list'])->name('list');
         Route::get('/add', [\App\Http\Controllers\QuizController::class, 'add'])->name('add');
+        Route::post('/add', [\App\Http\Controllers\QuizController::class, 'store'])->name('store');
+        Route::get('/delete/{quiz}', [\App\Http\Controllers\QuizController::class, 'deleteQuiz'])->name('delete');
+        Route::get('/question/{quiz}', [\App\Http\Controllers\QuizController::class, 'question'])->name('question');
+        Route::get('/question/{quiz}/add', [\App\Http\Controllers\QuizController::class, 'addQuestion'])->name('addQuestion');
+        Route::post('/question/{quiz}/add', [\App\Http\Controllers\QuizController::class, 'storeQuestion'])->name('storeQuestion');
+
+        Route::get('/question/{quiz}/edit/{question}', [\App\Http\Controllers\QuizController::class, 'editQuestion'])->name('editQuestion');
+        Route::post('/question/{quiz}/edit/{question}', [\App\Http\Controllers\QuizController::class, 'updateQuestion'])->name('updateQuestion');
+
+        Route::get('/question/{quiz}/delete/{question}', [\App\Http\Controllers\QuizController::class, 'deleteQuestion'])->name('deleteQuestion');
+        Route::get('/question/{quiz}/option/{question}', [\App\Http\Controllers\QuizController::class, 'option'])->name('option');
+        Route::get('/question/{quiz}/option/{question}/delete/{option}', [\App\Http\Controllers\QuizController::class, 'deleteOption'])->name('deleteOption');
         Route::get('/result', [\App\Http\Controllers\QuizController::class, 'result'])->name('result');
     });
 
-    
+
 });
 
 Route::get('/login', function () {
@@ -35,3 +47,8 @@ Route::get('/login', function () {
 Route::get('/panel/admin', function () {
     return view('panel.posts');
 })->name('admin');
+
+
+Route::get('/test', function () {
+    return view('test');
+})->name('test');
