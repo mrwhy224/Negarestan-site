@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Option;
 use App\Models\Question;
 use App\Models\Quiz;
+use App\Models\QuizAttempt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -117,5 +118,10 @@ class QuizController
     {
         $option->delete();
         return redirect()->route('quiz.option', ['quiz'=>$quiz->id, 'question'=>$question]);
+    }
+    public function result()
+    {
+        $results = QuizAttempt::with('quiz','user')->paginate(10);
+        return view('panel.quizResults', ['results'=>$results]);
     }
 }

@@ -1,0 +1,163 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Post;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+
+class MainPageController
+{
+    public function homePage()
+    {
+
+
+        return view('index', ['posts'=>Post::with('category','author')->orderBy('created_at', 'desc')->get()]);
+    }
+
+    public function register(Request $request)
+    {
+        // اعتبار سنجی داده‌های ورودی با استفاده از قوانین لاراول
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|regex:/^09[0-9]{9}$/|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ], [
+            // پیام‌های خطای فارسی
+            'name.required' => 'فیلد نام و نام خانوادگی اجباری است.',
+            'phone.required' => 'شماره تلفن اجباری است.',
+            'phone.regex' => 'فرمت شماره تلفن صحیح نیست.',
+            'phone.unique' => 'این شماره تلفن قبلاً ثبت شده است.',
+            'password.required' => 'رمز عبور اجباری است.',
+            'password.min' => 'رمز عبور باید حداقل ۶ کاراکتر باشد.',
+            'password.confirmed' => 'رمز عبور و تکرار آن با هم مطابقت ندارند.',
+        ]);
+
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()->first()
+            ], 422); // Unprocessable Entity
+        }
+
+        $user = User::create([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'role' => 'user',
+            'password' => Hash::make($request->password),
+        ]);
+
+
+        // بازگرداندن پاسخ موفقیت
+        return response()->json([
+            'message' => 'ثبت نام شما با موفقیت انجام شد! به آموزشگاه آینده خوش آمدید.'
+        ], 201); // Created
+    }
+
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'phone' => 'required|string|regex:/^09[0-9]{9}$/',
+            'password' => 'required|string|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $credentials = $request->only('phone', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            $user = Auth::user();
+            $redirectTo = route('home');
+
+            return response()->json([
+                'message' => 'ورود با موفقیت انجام شد.',
+                'redirect_to' => $redirectTo,
+            ], 200);
+        }
+
+        return response()->json([
+            'error' => 'ایمیل یا رمز عبور اشتباه است.'
+        ], 401);
+    }
+    public function post(Post $post)
+    {
+        $processedContent = $this->processEditorJsContent($post->content);
+        $post->processed_content = $processedContent;
+
+        return view('single', compact('post'));
+    }
+
+    /**
+     * پردازش محتوای JSON از Editor.js و تبدیل آن به HTML.
+     *
+     * @param  string  $contentJson
+     * @return string
+     */
+    protected function processEditorJsContent(string $contentJson): string
+    {
+        $data = json_decode($contentJson, true);
+        if (!is_array($data) || !isset($data['blocks'])) {
+            return '';
+        }
+
+        $html = '';
+        foreach ($data['blocks'] as $block) {
+            $type = $block['type'];
+            $blockData = $block['data'];
+
+            switch ($type) {
+                case 'header':
+                    $level = $blockData['level'];
+                    $text = $blockData['text'];
+                    $html .= "<h{$level} class='text-right font-bold'>{$text}</h{$level}>";
+                    break;
+                case 'paragraph':
+                    $text = $blockData['text'];
+                    $html .= "<p class='text-justify leading-relaxed'>{$text}</p>";
+                    break;
+                case 'list':
+                    $tag = ($blockData['style'] === 'unordered') ? 'ul' : 'ol';
+                    $html .= "<{$tag} class='list-inside list-disc text-right my-4'>";
+                    foreach ($blockData['items'] as $item) {
+                        $html .= "<li>{$item}</li>";
+                    }
+                    $html .= "</{$tag}>";
+                    break;
+                case 'image':
+                    $url = $blockData['file']['url'] ?? '';
+                    $caption = $blockData['caption'] ?? '';
+                    $html .= "<div class='text-center my-6'>";
+                    $html .= "<img src='{$url}' alt='{$caption}' class='rounded-lg shadow-md inline-block max-w-full h-auto' style='direction: ltr;'>";
+                    if ($caption) {
+                        $html .= "<p class='text-sm text-gray-500 mt-2 italic'>{$caption}</p>";
+                    }
+                    $html .= "</div>";
+                    break;
+                case 'quote':
+                    $text = $blockData['text'];
+                    $caption = $blockData['caption'] ?? '';
+                    $html .= "<blockquote class='border-r-4 border-gray-300 pr-4 my-4 italic text-gray-600'><p>{$text}</p>";
+                    if ($caption) {
+                        $html .= "<cite class='block text-right mt-2 not-italic'>{$caption}</cite>";
+                    }
+                    $html .= "</blockquote>";
+                    break;
+                default:
+                    // برای سایر بلاک‌های ناشناس
+                    $html .= "<p>Unsupported block type: {$type}</p>";
+                    break;
+            }
+        }
+
+        return $html;
+    }
+}

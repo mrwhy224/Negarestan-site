@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>وب‌سایت آموزشگاه - تم جدید</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>وب‌سایت آموزشگاه </title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -79,12 +80,12 @@
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
         <!-- Left Side: Logo & Navigation -->
         <div class="flex items-center gap-10">
-            <a href="index.html">
+            <a href="{{ route('home') }}">
                 <img src="logo.png" alt="logo" class="h-14 w-auto">
             </a>
             <nav class="hidden md:flex space-x-8 space-x-reverse">
-                <a href="#about" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">درباره ما</a>
-                <a href="#features" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">ویژگی‌ها</a>
+                <a href="{{ route('dashboards') }}" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">مشاهده پنل</a>
+                <a href="{{ route('quiz') }}" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">نمونه آزمون</a>
                 <a href="#packages" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">پکیج‌ها</a>
                 <a href="#blog" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">وبلاگ</a>
                 <a href="#contact" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">مشاوره رایگان</a>
@@ -95,8 +96,8 @@
         <div class="flex items-center">
             <!-- Desktop Auth Buttons -->
             <div class="hidden md:flex items-center space-x-4 space-x-reverse">
-                <a href="#" class="text-gray-700 font-semibold hover:text-[var(--brand-gold)] transition duration-300">ورود</a>
-                <a href="#" class="bg-[var(--brand-gold)] text-white font-bold py-2 px-5 rounded-lg hover:brightness-95 transition duration-300 shadow-md">ثبت نام</a>
+                <a href="{{ route('login') }}" class="text-gray-700 font-semibold hover:text-[var(--brand-gold)] transition duration-300">ورود</a>
+                <a href="{{ route('register') }}" class="bg-[var(--brand-gold)] text-white font-bold py-2 px-5 rounded-lg hover:brightness-95 transition duration-300 shadow-md">ثبت نام</a>
             </div>
             <!-- Mobile Menu Button -->
             <button class="md:hidden text-2xl text-gray-700">
@@ -152,8 +153,8 @@
             <h2 class="text-4xl md:text-5xl font-bold text-[var(--brand-blue)] mb-8 leading-tight">
                 <span>آموزشگاه علمی </span>
                 <span class="bg-[var(--brand-gold)] text-white px-4 py-1 rounded-lg shadow-lg inline-block min-w-[150px] text-center">
-                        <span id="typing-effect"></span>
-                    </span>
+                    <span id="typing-effect"></span>
+                </span>
                 <span>، برترین در سطح کشور</span>
             </h2>
             <p class="max-w-3xl mx-auto text-lg text-gray-600 leading-relaxed text-justify">
@@ -289,67 +290,78 @@
                 </p>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-6 gap-8 items-start">
-                <!-- کارت بزرگ اصلی (سمت چپ در حالت دسکتاپ) -->
-                <a href="#" class="lg:col-span-4 lg:order-1 bg-white rounded-2xl shadow-xl overflow-hidden h-full flex flex-col group transform hover:-translate-y-1 transition-all duration-300">
-                    <div class="relative">
-                        <img src="https://placehold.co/600x400/0e7490/ffffff?text=Image+1" alt="مقاله اصلی" class="w-full h-64 object-cover">
-                        <div class="absolute top-4 right-4 bg-[var(--brand-gold)] text-white text-sm font-bold py-1 px-3 rounded-full shadow">مشاوره</div>
+                @foreach($posts as $index => $post)
+                    @if($index==0)
+                        <a href="#" class="lg:col-span-4 lg:order-1 bg-white rounded-2xl shadow-xl overflow-hidden h-full flex flex-col group transform hover:-translate-y-1 transition-all duration-300">
+                            <div class="relative">
+                                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-96 object-cover">
+                                <div class="absolute top-4 right-4 bg-[var(--brand-gold)] text-white text-sm font-bold py-1 px-3 rounded-full shadow">{{ $post->category->name }}</div>
+                            </div>
+                            <div class="p-6 flex-grow flex flex-col">
+                                <h3 class="text-2xl font-bold text-gray-800 mb-3 group-hover:text-[var(--brand-gold)] transition">{{ $post->title }}</h3>
+                                <p class="text-gray-600 mb-4 flex-grow">{{ $post->excerpt }}</p>
+                                <div class="pt-4 flex justify-between items-center text-sm text-gray-500 border-t border-gray-200 mt-auto">
+                                    <span><i class="fas fa-user ml-2"></i>{{ $post->author->name }}</span>
+                                    <span><i class="fas fa-calendar-alt ml-2"></i>{{ jdate($post->created_at)->format('j F Y') }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    @elseif($index==1)
+                    <div class="lg:col-span-2 lg:order-2 space-y-8">
+                        <a href="#" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
+                            <div class="relative">
+                                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
+                                <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="font-bold text-lg text-gray-800 mb-3 group-hover:text-[var(--brand-gold)] transition">{{ $post->title }}</h4>
+                                <p class="text-gray-600 mb-4 flex-grow">{{ $post->excerpt }}</p>
+                                <div class="pt-4 flex justify-between items-center text-sm text-gray-500 border-t border-gray-200 mt-auto">
+                                    <span><i class="fas fa-user ml-2"></i>{{ $post->author->name }}</span>
+                                    <span><i class="fas fa-calendar-alt ml-2"></i>{{ jdate($post->created_at)->format('j F Y') }}</span>
+                                </div>
+                            </div>
+                        </a>
+                        @if(count($posts) == 2)</div>@endif
+                    @elseif($index==2)
+                        <a href="#" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
+                            <div class="relative">
+                                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
+                                <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="font-bold text-lg text-gray-800 mb-3 group-hover:text-[var(--brand-gold)] transition">{{ $post->title }}</h4>
+                                <p class="text-gray-600 mb-4 flex-grow">{{ $post->excerpt }}</p>
+                                <div class="pt-4 flex justify-between items-center text-sm text-gray-500 border-t border-gray-200 mt-auto">
+                                    <span><i class="fas fa-user ml-2"></i>{{ $post->author->name }}</span>
+                                    <span><i class="fas fa-calendar-alt ml-2"></i>{{ jdate($post->created_at)->format('j F Y') }}</span>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    <div class="p-6 flex-grow flex flex-col">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-3 group-hover:text-[var(--brand-gold)] transition">چگونه برای کنکور برنامه‌ریزی کنیم؟ یک راهنمای کامل</h3>
-                        <p class="text-gray-600 mb-4 flex-grow">در این مقاله، به بررسی جامع روش‌های برنامه‌ریزی درسی، مدیریت زمان و تکنیک‌های مطالعه برای داوطلبان کنکور می‌پردازیم تا بتوانید بهترین نتیجه را کسب کنید.</p>
-                        <div class="pt-4 flex justify-between items-center text-sm text-gray-500 border-t border-gray-200 mt-auto">
-                            <span><i class="fas fa-user ml-2"></i>تیم مشاوره آینده</span>
-                            <span><i class="fas fa-calendar-alt ml-2"></i>۱ شهریور ۱۴۰۴</span>
-                        </div>
-                    </div>
-                </a>
-                <!-- ستون کارت‌های کوچک (سمت راست در حالت دسکتاپ) -->
-                <div class="lg:col-span-2 lg:order-2 space-y-8">
-                    <!-- کارت کوچک ۱ -->
-                    <a href="#" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
-                        <div class="relative">
-                            <img src="https://placehold.co/600x400/155e75/ffffff?text=Image+2" alt="مقاله دوم" class="w-full h-40 object-cover">
-                            <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">برنامه‌ریزی</div>
-                        </div>
-                        <div class="p-4">
-                            <h4 class="font-bold text-lg text-gray-800 group-hover:text-[var(--brand-gold)] transition">۵ اشتباه رایج در سال کنکور</h4>
-                            <p class="text-sm text-gray-500 mt-2 line-clamp-2">از این اشتباهات رایج که بسیاری از دانش‌آموزان مرتکب می‌شوند، دوری کنید...</p>
-                        </div>
-                    </a>
-                    <!-- کارت کوچک ۲ -->
-                    <a href="#" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
-                        <div class="relative">
-                            <img src="https://placehold.co/600x400/164e63/ffffff?text=Image+3" alt="مقاله سوم" class="w-full h-40 object-cover">
-                            <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">منابع</div>
-                        </div>
-                        <div class="p-4">
-                            <h4 class="font-bold text-lg text-gray-800 group-hover:text-[var(--brand-gold)] transition">معرفی بهترین منابع کمک درسی</h4>
-                            <p class="text-sm text-gray-500 mt-2 line-clamp-2">با انتخاب منابع درست و استاندارد، مسیر موفقیت خود را هموارتر کنید...</p>
-                        </div>
-                    </a>
-                </div>
-                <a href="#" class="lg:col-span-3 lg:order-3 bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
-                    <div class="relative">
-                        <img src="https://placehold.co/600x400/155e75/ffffff?text=Image+4" alt="مقاله دوم" class="w-full h-40 object-cover">
-                        <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">برنامه‌ریزی</div>
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-bold text-lg text-gray-800 group-hover:text-[var(--brand-gold)] transition">۵ اشتباه رایج در سال کنکور</h4>
-                        <p class="text-sm text-gray-500 mt-2 line-clamp-2">از این اشتباهات رایج که بسیاری از دانش‌آموزان مرتکب می‌شوند، دوری کنید...</p>
-                    </div>
-                </a>
-                <a href="#" class="lg:col-span-3 lg:order-4 bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
-                    <div class="relative">
-                        <img src="https://placehold.co/600x400/155e75/ffffff?text=Image+5" alt="مقاله دوم" class="w-full h-40 object-cover">
-                        <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">برنامه‌ریزی</div>
-                    </div>
-                    <div class="p-4">
-                        <h4 class="font-bold text-lg text-gray-800 group-hover:text-[var(--brand-gold)] transition">۵ اشتباه رایج در سال کنکور</h4>
-                        <p class="text-sm text-gray-500 mt-2 line-clamp-2">از این اشتباهات رایج که بسیاری از دانش‌آموزان مرتکب می‌شوند، دوری کنید...</p>
-                    </div>
-                </a>
+                    @elseif($index==3 || $index==4)
+                        <a href="#" class="lg:col-span-3 lg:order-3 bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
+                            <div class="relative">
+                                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-64 object-cover">
+                                <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</div>
+                            </div>
+                            <div class="p-4">
+                                <h4 class="font-bold text-lg text-gray-800 mb-3 group-hover:text-[var(--brand-gold)] transition">{{ $post->title }}</h4>
+                                <p class="text-gray-600 mb-4 flex-grow">{{ $post->excerpt }}</p>
+                                <div class="pt-4 flex justify-between items-center text-sm text-gray-500 border-t border-gray-200 mt-auto">
+                                    <span><i class="fas fa-user ml-2"></i>{{ $post->author->name }}</span>
+                                    <span><i class="fas fa-calendar-alt ml-2"></i>{{ jdate($post->created_at)->format('j F Y') }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    @endif
+                @endforeach
 
+            </div>
+            <div class="text-center mt-12">
+                <a href="{{ route('post.list') }}" class="inline-block font-bold py-3 px-8 rounded-lg hover:translate-y-1 transition duration-300 text-lg">
+                    مشاهده بیشتر
+                </a>
             </div>
         </div>
     </section>
@@ -501,16 +513,36 @@
         const form = document.getElementById('consultationForm');
         const formMessage = document.getElementById('form-message');
 
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             formMessage.textContent = 'در حال ارسال درخواست...';
             formMessage.className = 'text-blue-600';
 
-            setTimeout(() => {
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('/api/user-forms', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Server responded with an error');
+                }
+
                 formMessage.textContent = 'درخواست شما با موفقیت ثبت شد! به زودی با شما تماس می‌گیریم.';
                 formMessage.className = 'text-green-600 font-bold';
                 form.reset();
-            }, 1500);
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                formMessage.textContent = 'خطا در ارسال درخواست. لطفا دوباره تلاش کنید.';
+                formMessage.className = 'text-red-600 font-bold';
+            }
         });
 
         // --- انیمیشن تایپ ---

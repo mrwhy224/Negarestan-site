@@ -16,13 +16,13 @@
                                 </ol>
                             </nav>
                         </div>
-                        <a href="#" class="bg-[var(--brand-gold)] text-white font-bold py-2 px-5 rounded-lg hover:brightness-95 transition duration-300 shadow-md flex items-center">
+                        <a href="{{ route('post.create') }}" class="bg-[var(--brand-gold)] text-white font-bold py-2 px-5 rounded-lg hover:brightness-95 transition duration-300 shadow-md flex items-center">
                             <i class="fas fa-plus ml-2"></i>
                             <span>افزودن مقاله</span>
                         </a>
                     </div>
 
-                    <!-- Articles Table -->
+                    <!-- Posts Table -->
                     <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
                         <table class="w-full whitespace-nowrap">
                             <thead>
@@ -30,46 +30,58 @@
                                     <th class="px-4 py-3">عنوان مقاله</th>
                                     <th class="px-4 py-3">نویسنده</th>
                                     <th class="px-4 py-3">دسته‌بندی</th>
+                                    <th class="px-4 py-3">وضعیت</th>
                                     <th class="px-4 py-3">تاریخ انتشار</th>
                                     <th class="px-4 py-3">عملیات</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                <!-- Sample Row 1 -->
-                                <tr>
-                                    <td class="px-4 py-4">چگونه برای کنکور برنامه‌ریزی کنیم؟</td>
-                                    <td class="px-4 py-4">تیم مشاوره</td>
-                                    <td class="px-4 py-4"><span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">مشاوره</span></td>
-                                    <td class="px-4 py-4">۱ شهریور ۱۴۰۴</td>
-                                    <td class="px-4 py-4">
-                                        <a href="#" class="text-[var(--brand-blue)] hover:text-blue-700 ml-4"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="text-[var(--brand-blue)] hover:text-red-700"><i class="fas fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                                <!-- Sample Row 2 -->
-                                <tr>
-                                    <td class="px-4 py-4">۵ اشتباه رایج در سال کنکور</td>
-                                    <td class="px-4 py-4">علی رضایی</td>
-                                    <td class="px-4 py-4"><span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">برنامه‌ریزی</span></td>
-                                    <td class="px-4 py-4">۲۸ مرداد ۱۴۰۴</td>
-                                    <td class="px-4 py-4">
-                                        <a href="#" class="text-[var(--brand-blue)] hover:text-blue-700 ml-4"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="text-[var(--brand-blue)] hover:text-red-700"><i class="fas fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                                <!-- Sample Row 3 -->
-                                <tr>
-                                    <td class="px-4 py-4">معرفی بهترین منابع کمک درسی</td>
-                                    <td class="px-4 py-4">مریم احمدی</td>
-                                    <td class="px-4 py-4"><span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">منابع</span></td>
-                                    <td class="px-4 py-4">۱۵ مرداد ۱۴۰۴</td>
-                                    <td class="px-4 py-4">
-                                        <a href="#" class="text-[var(--brand-blue)] hover:text-blue-700 ml-4"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="text-[var(--brand-blue)] hover:text-red-700"><i class="fas fa-trash"></i></a>
-                                    </td>
-                                </tr>
+                                @php
+                                    // تابع کمکی برای تولید رنگ بر اساس یک رشته
+                                    function getCategoryColorClass($categoryName) {
+                                        $colors = ['red', 'yellow', 'green', 'blue', 'indigo', 'purple', 'pink'];
+                                        $hash = crc32($categoryName);
+                                        $color = $colors[$hash % count($colors)];
+                                        return "bg-{$color}-100 text-{$color}-800";
+                                    }
+                                @endphp
+
+                                {{-- فرض می‌کنیم یک متغیر $posts از کنترلر به این ویو ارسال شده است --}}
+                                @foreach($posts as $post)
+                                    <tr>
+                                        <td class="px-4 py-4">
+                                            <div class="flex items-center">
+                                                <a href="#" target="_blank" class="text-gray-500 hover:text-[var(--brand-blue)] ml-2">
+                                                    <i class="fas fa-external-link-alt"></i>
+                                                </a>
+                                                <span>{{ $post->title }}</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-4">{{ $post->author->name }}</td>
+                                        <td class="px-4 py-4">
+                                            @if($post->category)
+                                                @php
+                                                    $color_class = getCategoryColorClass($post->category->name);
+                                                @endphp
+                                                <span class="{{ $color_class }} text-sm font-medium px-2.5 py-0.5 rounded">{{ $post->category->name }}</span>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-4">
+                                            @if($post->status == 'published')
+                                                <span class="bg-green-100 text-green-800 text-sm font-medium px-2.5 py-0.5 rounded">انتشار</span>
+                                            @else
+                                                <span class="bg-gray-100 text-gray-800 text-sm font-medium px-2.5 py-0.5 rounded">پیش‌نویس</span>
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-4">{{ $post->published_at?jdate($post->published_at)->format('j F Y'):'' }}</td>
+                                        <td class="px-4 py-4">
+                                            <a href="{{ route('post.edit', $post->id) }}" class="text-[var(--brand-blue)] hover:text-blue-700 ml-4"><i class="fas fa-edit"></i></a>
+                                            <a href="{{ route('post.toggle', $post->id) }}" class="text-[var(--brand-blue)] hover:text-blue-700 ml-4"><i class="fas fa-refresh"></i></a>
+                                            <a href="{{ route('post.destroy', $post->id) }}" class="text-[var(--brand-blue)] hover:text-red-700"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-
 @endsection

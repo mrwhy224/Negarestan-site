@@ -71,7 +71,7 @@
                     <div x-show="openMenu === 'post'" x-cloak class="mt-2 mr-6 space-y-2 border-r-2 border-gray-500 pr-4">
                         <a href="{{ route('post.list') }}" class="block py-2 text-gray-400 {{ request()->routeIs('post.list') ? 'text-white' : 'hover:text-white' }}">همه نوشته ها</a>
                         <a href="{{ route('post.category') }}" class="block py-2 text-gray-400 {{ request()->routeIs('post.category') ? 'text-white' : 'hover:text-white' }}">دسته بندی</a>
-                        <a href="#" class="block py-2 text-gray-400 {{ request()->routeIs('post.list') ? 'text-white' : 'hover:text-white' }}">افزودن</a>
+                        <a href="{{ route('post.create') }}" class="block py-2 text-gray-400 {{ request()->routeIs('post.create') ? 'text-white' : 'hover:text-white' }}">افزودن</a>
                     </div>
                 </div>
                 <div class="mt-4">
@@ -84,7 +84,7 @@
                     </button>
                     <div x-show="openMenu === 'quiz'" x-cloak class="mt-2 mr-6 space-y-2 border-r-2 border-gray-500 pr-4">
                         <a href="{{ route('quiz.list') }}" class="block py-2 text-gray-400 {{ request()->routeIs('quiz.list') ? 'text-white' : 'hover:text-white' }}">لیست</a>
-                        <a href="#" class="block py-2 text-gray-400 hover:text-white">نتایج</a>
+                        <a href="{{ route('quiz.result') }}" class="block py-2 text-gray-400 {{ request()->routeIs('quiz.result') ? 'text-white' : 'hover:text-white' }}">نتایج</a>
                     </div>
                 </div>
 
