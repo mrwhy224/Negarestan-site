@@ -292,7 +292,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-6 gap-8 items-start">
                 @foreach($posts as $index => $post)
                     @if($index==0)
-                        <a href="#" class="lg:col-span-4 lg:order-1 bg-white rounded-2xl shadow-xl overflow-hidden h-full flex flex-col group transform hover:-translate-y-1 transition-all duration-300">
+                        <a href="{{ route('single',['post'=>$post->slug]) }}" class="lg:col-span-4 lg:order-1 bg-white rounded-2xl shadow-xl overflow-hidden h-full flex flex-col group transform hover:-translate-y-1 transition-all duration-300">
                             <div class="relative">
                                 <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-96 object-cover">
                                 <div class="absolute top-4 right-4 bg-[var(--brand-gold)] text-white text-sm font-bold py-1 px-3 rounded-full shadow">{{ $post->category->name }}</div>
@@ -308,7 +308,7 @@
                         </a>
                     @elseif($index==1)
                     <div class="lg:col-span-2 lg:order-2 space-y-8">
-                        <a href="#" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
+                        <a href="{{ route('single',['post'=>$post->slug]) }}" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
                             <div class="relative">
                                 <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
                                 <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</div>
@@ -324,7 +324,7 @@
                         </a>
                         @if(count($posts) == 2)</div>@endif
                     @elseif($index==2)
-                        <a href="#" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
+                        <a href="{{ route('single',['post'=>$post->slug]) }}" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
                             <div class="relative">
                                 <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
                                 <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</div>
@@ -340,7 +340,7 @@
                         </a>
                     </div>
                     @elseif($index==3 || $index==4)
-                        <a href="#" class="lg:col-span-3 lg:order-3 bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
+                        <a href="{{ route('single',['post'=>$post->slug]) }}" class="lg:col-span-3 lg:order-3 bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
                             <div class="relative">
                                 <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-64 object-cover">
                                 <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</div>

@@ -139,8 +139,26 @@
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
 <script>
+    // 1. استخراج محتوای ذخیره شده از فیلد مخفی
+    const initialContentElement = document.getElementById('editorjs_content');
+    let EDITOR_DATA = {};
+    if (initialContentElement && initialContentElement.value) {
+        try {
+            // تبدیل محتوای JSON ذخیره‌شده به شیء جاوااسکریپتی
+            EDITOR_DATA = JSON.parse(initialContentElement.value);
+        } catch (e) {
+            console.error("Error parsing Editor.js content:", e);
+            // در صورت وجود خطا، یک شیء خالی به EditorJS پاس داده می‌شود.
+            EDITOR_DATA = {};
+        }
+    }
+
+
     const editor = new EditorJS({
         holder: 'editorjs',
+        
+        // 2. استفاده از داده‌های پارس شده برای لود شدن محتوا
+        data: EDITOR_DATA, 
 
         // RTL and Persian Language Configuration
         i18n: {

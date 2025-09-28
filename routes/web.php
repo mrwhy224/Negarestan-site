@@ -84,4 +84,4 @@ Route::get('/panel/admin', function () {
 Route::get('/test', function () {
     return view('test');
 })->name('test');
-Route::get('/{post:slug}', [MainPageController::class, 'post']);
+Route::get('/{post:slug}', [MainPageController::class, 'post'])->name('single');
