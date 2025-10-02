@@ -71,6 +71,16 @@
                 opacity: 0;
             }
         }
+        .swiper-container {
+            min-height: 40vh; /* حداقل ۴۰٪ ارتفاع صفحه در موبایل */
+            max-height: 60vh; /* حداکثر ۶۰٪ ارتفاع صفحه در موبایل */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            .swiper-container {
+                min-height: 50vh; /* حداقل ۵۰٪ ارتفاع صفحه در دسکتاپ */
+                max-height: 75vh; /* حداکثر ۷۵٪ ارتفاع صفحه در دسکتاپ */
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -109,11 +119,12 @@
 
 <main>
     <!-- بخش اسلایدر با Swiper.js -->
-    <section id="slider" class="relative w-full h-96 md:h-[500px] swiper-container">
+    <!-- ارتفاع ثابت (h-96 md:h-[500px]) حذف شد و ارتفاع توسط CSS سفارشی (vh) مدیریت می‌شود. -->
+    <section id="slider" class="relative w-full swiper-container">
         <div class="swiper-wrapper">
             <!-- Slide 1 -->
             <div class="swiper-slide">
-                <img src="https://placehold.co/1920x1080/f5b301/ffffff?text=Slide+1" alt="تصویر دانش‌آموزان موفق" class="w-full h-full object-cover">
+                <img src="/images/slide1.png" alt="تصویر دانش‌آموزان موفق" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8 md:p-16">
                     <div class="text-right text-white max-w-2xl">
                         <h2 class="text-4xl md:text-6xl font-bold fantasy-font">آینده‌ای درخشان بسازید</h2>
@@ -123,7 +134,7 @@
             </div>
             <!-- Slide 2 -->
             <div class="swiper-slide">
-                <img src="https://placehold.co/1920x1080/f5b301/ffffff?text=Slide+2" alt="تصویر کلاس درس" class="w-full h-full object-cover">
+                <img src="/images/slide2.png" alt="تصویر کلاس درس" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8 md:p-16">
                     <div class="text-right text-white max-w-2xl">
                         <h2 class="text-4xl md:text-6xl font-bold fantasy-font">آموزش با جدیدترین متدها</h2>
@@ -133,7 +144,37 @@
             </div>
             <!-- Slide 3 -->
             <div class="swiper-slide">
-                <img src="https://placehold.co/1920x1080/f5b301/ffffff?text=Slide+3" alt="تصویر جلسه مشاوره" class="w-full h-full object-cover">
+                <img src="/images/slide3.png" alt="تصویر جلسه مشاوره" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8 md:p-16">
+                    <div class="text-right text-white max-w-2xl">
+                        <h2 class="text-4xl md:text-6xl font-bold fantasy-font">راهنمای شما تا روز کنکور</h2>
+                        <p class="mt-4 text-lg md:text-xl">مشاوران ما در تمام مراحل همراه شما خواهند بود.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="swiper-slide">
+                <img src="/images/slide4.png" alt="تصویر جلسه مشاوره" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8 md:p-16">
+                    <div class="text-right text-white max-w-2xl">
+                        <h2 class="text-4xl md:text-6xl font-bold fantasy-font">راهنمای شما تا روز کنکور</h2>
+                        <p class="mt-4 text-lg md:text-xl">مشاوران ما در تمام مراحل همراه شما خواهند بود.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 5 -->
+            <div class="swiper-slide">
+                <img src="/images/slide5.png" alt="تصویر جلسه مشاوره" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8 md:p-16">
+                    <div class="text-right text-white max-w-2xl">
+                        <h2 class="text-4xl md:text-6xl font-bold fantasy-font">راهنمای شما تا روز کنکور</h2>
+                        <p class="mt-4 text-lg md:text-xl">مشاوران ما در تمام مراحل همراه شما خواهند بود.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="swiper-slide">
+                <img src="/images/slide6.png" alt="تصویر جلسه مشاوره" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8 md:p-16">
                     <div class="text-right text-white max-w-2xl">
                         <h2 class="text-4xl md:text-6xl font-bold fantasy-font">راهنمای شما تا روز کنکور</h2>
@@ -144,7 +185,6 @@
         </div>
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
-        <div class="swiper-pagination"></div>
     </section>
 
     <!-- بخش توضیحات و عنوان موسسه -->
