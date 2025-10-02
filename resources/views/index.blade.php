@@ -209,7 +209,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-20 text-center">
                 <div class="bg-white/50 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-gray-200">
                     <i class="fas fa-calendar-alt text-5xl text-[var(--brand-gold)] mb-4"></i>
-                    <p class="text-5xl font-bold text-gray-800 counter" data-target="15">۰</p>
+                    <p class="text-5xl font-bold text-gray-800 counter" data-target="30">۰</p>
                     <h3 class="text-2xl mt-2 text-gray-600">سال سابقه درخشان</h3>
                 </div>
                 <div class="bg-white/50 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-gray-200">
@@ -219,7 +219,7 @@
                 </div>
                 <div class="bg-white/50 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-gray-200">
                     <i class="fas fa-trophy text-5xl text-[var(--brand-gold)] mb-4"></i>
-                    <p class="text-5xl font-bold text-gray-800 counter" data-target="300">۰</p>
+                    <p class="text-5xl font-bold text-gray-800 counter" data-target="2400">۰</p>
                     <h3 class="text-2xl mt-2 text-gray-600">رتبه برتر کنکور</h3>
                 </div>
             </div>
@@ -284,36 +284,38 @@
                     <div class="flex items-center justify-center h-20 w-20 mx-auto mb-6 bg-yellow-100 rounded-full">
                         <i class="fas fa-chalkboard-teacher text-4xl text-[var(--brand-gold)]"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-3">اساتید برجسته</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">روش LMP هلند</h3>
                     <p class="text-gray-600">
-                        بهره‌گیری از بهترین و مجرب‌ترین دبیران و مشاوران کنکور کشور.
+                        با سیستم نوین LMP، یک روز آموزش عمیق و یک روز پانسیون مطالعاتی؛ ترکیبی که باعث تثبیت یادگیری، افزایش تمرکز و کاهش استرس دانش‌آموزان می‌شود.
                     </p>
                 </div>
                 <div class="bg-gray-50/50 border border-gray-200 p-8 rounded-2xl text-center shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
                     <div class="flex items-center justify-center h-20 w-20 mx-auto mb-6 bg-yellow-100 rounded-full">
                         <i class="fas fa-tasks text-4xl text-[var(--brand-gold)]"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-3">برنامه‌ریزی شخصی</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">سیستم ترمیک</h3>
                     <p class="text-gray-600">
-                        ارائه برنامه مطالعاتی منحصر به فرد برای هر دانش‌آموز متناسب با نیازهای او.
+                        تقسیم مباحث سنگین به ترم‌های کوتاه و قابل مدیریت؛ یادگیری مرحله‌به‌مرحله با مرور و آزمون در پایان هر ترم برای ماندگاری مطالب در ذهن.
                     </p>
                 </div>
                 <div class="bg-gray-50/50 border border-gray-200 p-8 rounded-2xl text-center shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
                     <div class="flex items-center justify-center h-20 w-20 mx-auto mb-6 bg-yellow-100 rounded-full">
                         <i class="fas fa-flask text-4xl text-[var(--brand-gold)]"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-3">آزمون‌های شبیه‌ساز</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">
+                    کلاس‌های تیزهوشان</h3>
                     <p class="text-gray-600">
-                        برگزاری آزمون‌های منظم و استاندارد برای تحلیل نقاط قوت و ضعف.
+                        کلاس‌های ویژه برای دانش‌آموزان مستعد با آموزش مفهومی، حل تمرین‌های سطح بالا و آماده‌سازی برای آزمون‌های مدارس تیزهوشان.
                     </p>
                 </div>
                 <div class="bg-gray-50/50 border border-gray-200 p-8 rounded-2xl text-center shadow-lg transform hover:-translate-y-2 transition-transform duration-300">
                     <div class="flex items-center justify-center h-20 w-20 mx-auto mb-6 bg-yellow-100 rounded-full">
                         <i class="fas fa-headset text-4xl text-[var(--brand-gold)]"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-3">پشتیبانی مستمر</h3>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">
+                    خدمات مشاوره</h3>
                     <p class="text-gray-600">
-                        همراهی و پشتیبانی مشاوران تحصیلی در تمام طول مسیر تا روز کنکور.
+                        مشاوره تحصیلی و روانشناسی تخصصی برای برنامه‌ریزی شخصی، مدیریت زمان، کاهش اضطراب و افزایش انگیزه در مسیر موفقیت.
                     </p>
                 </div>
             </div>
@@ -527,7 +529,7 @@
                     const updateCount = () => {
                         const inc = Math.ceil(target / speed);
                         count = Math.min(count + inc, target);
-                        counter.innerText = count.toLocaleString('fa');
+                        counter.innerText = count.toLocaleString('fa')+"+ ";
 
                         if (count < target) {
                             setTimeout(updateCount, 15);
