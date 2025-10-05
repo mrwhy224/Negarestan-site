@@ -13,7 +13,7 @@ class MainPageController
 {
     public function homePage()
     {
-        return view('index', ['posts'=>Post::with('category','author')->orderBy('created_at', 'desc')->get()]);
+        return view('index', ['posts'=>Post::with('category','author')->orderBy('published_at', 'desc')->whereNotNull('published_at')->limit(5)->get()]);
     }
 
     public function register(Request $request)
