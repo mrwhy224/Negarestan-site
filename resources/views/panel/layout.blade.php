@@ -118,7 +118,7 @@
                     </button>
                     <div x-show="dropdownOpen" @click.away="dropdownOpen = false" x-cloak class="absolute top-16 left-6 w-48 bg-white rounded-md shadow-lg py-1 z-20">
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">پروفایل</a>
-                        <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">خروج</a>
+                        <a href="{{ route('logout') }}" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">خروج</a>
                     </div>
                 </div>
             </header>

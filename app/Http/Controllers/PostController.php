@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\PostCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
@@ -53,7 +54,7 @@ class PostController
             'excerpt' => $validated['excerpt'],
             'content' => $validated['content'],
             'image' => $imagePath,
-            'user_id' => 1,
+            'user_id' => Auth::user()->id,
         ]);
 
         return redirect()->route('post.list')->with('success', 'مقاله با موفقیت ایجاد شد.');

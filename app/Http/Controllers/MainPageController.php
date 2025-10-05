@@ -13,8 +13,6 @@ class MainPageController
 {
     public function homePage()
     {
-
-
         return view('index', ['posts'=>Post::with('category','author')->orderBy('created_at', 'desc')->get()]);
     }
 
@@ -59,34 +57,54 @@ class MainPageController
 
     public function login(Request $request)
     {
+        // مرحله ۱: اعتبارسنجی ورودی‌ها با پیام‌های فارسی
         $validator = Validator::make($request->all(), [
-            'phone' => 'required|string|regex:/^09[0-9]{9}$/',
-            'password' => 'required|string|min:6',
+            'phone' => ['required', 'string', 'regex:/^09\d{9}$/'],
+            'password' => ['required', 'string'],
+        ], [
+            // پیام‌های خطای سفارشی و فارسی
+            'phone.required' => 'وارد کردن شماره تلفن الزامی است.',
+            'phone.regex'    => 'فرمت شماره تلفن صحیح نیست. (مثال: 09123456789)',
+            'password.required' => 'وارد کردن رمز عبور الزامی است.',
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors(),
-            ], 422);
+            // اگر اعتبارسنجی شکست خورد، خطاها را با کد 422 برمی‌گردانیم
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
+        // مرحله ۲: بررسی وجود کاربر قبل از تلاش برای لاگین
+        $user = User::where('phone', $request->phone)->first();
+
+        // اگر کاربری با این شماره تلفن وجود نداشت، خطای مشخص برمی‌گردانیم
+        if (!$user) {
+            return response()->json([
+                'error' => 'شماره تلفن یا رمز عبور اشتباه است.'
+            ], 401);
+        }
+
+        // مرحله ۳: تلاش برای احراز هویت (حالا مطمئنیم که کاربر وجود دارد)
         $credentials = $request->only('phone', 'password');
-
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-
-            $user = Auth::user();
-            $redirectTo = route('home');
-
+        if (!Auth::attempt($credentials)) {
+            // اگر تلاش ناموفق بود، یعنی رمز عبور اشتباه است
             return response()->json([
-                'message' => 'ورود با موفقیت انجام شد.',
-                'redirect_to' => $redirectTo,
-            ], 200);
+                'error' => 'شماره تلفن یا رمز عبور اشتباه است.'
+            ], 401);
         }
+
+        // مرحله ۴: موفقیت در ورود
+        $request->session()->regenerate();
 
         return response()->json([
-            'error' => 'ایمیل یا رمز عبور اشتباه است.'
-        ], 401);
+            'message' => 'ورود با موفقیت انجام شد. در حال انتقال...',
+            'redirect_to' => route('dashboards'), // یا هر آدرس دیگری مثل /dashboard
+        ], 200);
+    }
+
+    // متد username برای هماهنگی بیشتر با سیستم احراز هویت لاراول (اختیاری ولی توصیه شده)
+    public function username()
+    {
+        return 'phone';
     }
     public function post(Post $post)
     {

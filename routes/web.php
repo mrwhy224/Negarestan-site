@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MainPageController;
 use App\Http\Controllers\PostCategoryController;
 use App\Http\Controllers\PostController;
@@ -12,7 +13,7 @@ Route::get('/quiz', function () {
     return view('quiz');
 })->name('quiz');
 
-Route::prefix('panel')->group(function () {
+Route::prefix('panel')->middleware([\App\Http\Middleware\IsAdmin::class])->group(function () {
     Route::get('/', [\App\Http\Controllers\PanelController::class, 'index'])->name('dashboards');
 
     Route::prefix('post')->name('post.')->group(function () {
@@ -60,15 +61,15 @@ Route::prefix('panel')->group(function () {
 Route::prefix('api')->group(function () {
     Route::post('/user-forms', [UserFormController::class, 'store']);
     Route::post('/register', [MainPageController::class, 'register']);
-    Route::post('/login', [MainPageController::class, 'login']);
+    Route::post('/login', [MainPageController::class, 'login'])->middleware('guest');
     Route::post('/logout', [MainPageController::class, 'logout']);
 
 
 });
 
-Route::get('/login', function () {
-    return view('panel.login');
-})->name('login');
+Route::get('/login', [LoginController::class, 'load'])->middleware('guest')->name('login');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
 Route::get('/register', function () {
     return view('panel.register');
 })->name('register');
@@ -80,8 +81,4 @@ Route::get('/panel/admin', function () {
     return view('panel.posts');
 })->name('admin');
 
-
-Route::get('/test', function () {
-    return view('test');
-})->name('test');
 Route::get('/{post:slug}', [MainPageController::class, 'post'])->name('single');
