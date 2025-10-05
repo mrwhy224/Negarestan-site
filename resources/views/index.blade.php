@@ -210,14 +210,14 @@
                         <div class="text-center md:text-right">
                             <h3 class="text-3xl font-bold text-[var(--brand-blue)] mb-4">{{ $class->title }}</h3>
                             <p class="text-gray-600 leading-loose text-lg">
-                                شامل کلاس‌های درسی، آزمون‌های آزمایشی، و مشاوره‌های تخصصی برای قبولی در رشته‌های پرطرفدار پزشکی و پیراپزشکی. با این پکیج، تمام منابع لازم برای موفقیت را در اختیار خواهید داشت.
+                                {{ $class->excerpt }}
                             </p>
                             <a href="#" class="mt-6 inline-block bg-[var(--brand-gold)] text-white font-bold py-3 px-8 rounded-lg hover:brightness-95 transition duration-300 text-lg shadow-md">
                                 مشاهده جزئیات
                             </a>
                         </div>
                         <div>
-                            <img src="https://placehold.co/600x400/f5b301/ffffff?text=Image+1" alt="پکیج کنکور تجربی" class="w-full h-auto object-cover rounded-2xl shadow-xl transform hover:scale-105 transition-transform duration-500">
+                            <img src="{{ Storage::url($post->image) }}" alt="{{ $class->title }}" class="w-full h-auto object-cover rounded-2xl shadow-xl transform hover:scale-105 transition-transform duration-500">
                         </div>
                     </div>
 
