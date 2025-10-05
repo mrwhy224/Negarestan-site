@@ -217,7 +217,7 @@
                             </a>
                         </div>
                         <div>
-                            <img src="{{ Storage::url($post->image) }}" alt="{{ $class->title }}" class="w-full h-auto object-cover rounded-2xl shadow-xl transform hover:scale-105 transition-transform duration-500">
+                            <img src="{{ Storage::url($class->image) }}" alt="{{ $class->title }}" class="w-full h-auto object-cover rounded-2xl shadow-xl transform hover:scale-105 transition-transform duration-500">
                         </div>
                     </div>
 
