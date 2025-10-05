@@ -81,6 +81,7 @@
                 max-height: 75vh; /* حداکثر ۷۵٪ ارتفاع صفحه در دسکتاپ */
             }
         }
+
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -120,67 +121,32 @@
 <main>
     <!-- بخش اسلایدر با Swiper.js -->
     <!-- ارتفاع ثابت (h-96 md:h-[500px]) حذف شد و ارتفاع توسط CSS سفارشی (vh) مدیریت می‌شود. -->
-    <section id="slider" class="relative w-full swiper-container">
+    <section id="slider" class="relative w-full swiper">
         <div class="swiper-wrapper">
             <!-- Slide 1 -->
             <div class="swiper-slide">
                 <img src="/images/slide1.png" alt="تصویر دانش‌آموزان موفق" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8 md:p-16">
-                    <div class="text-right text-white max-w-2xl">
-                        <h2 class="text-4xl md:text-6xl font-bold fantasy-font">آینده‌ای درخشان بسازید</h2>
-                        <p class="mt-4 text-lg md:text-xl">با برنامه‌ریزی دقیق و اساتید مجرب، مسیر موفقیت را هموار می‌کنیم.</p>
-                    </div>
-                </div>
+                
             </div>
             <!-- Slide 2 -->
             <div class="swiper-slide">
                 <img src="/images/slide2.png" alt="تصویر کلاس درس" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8 md:p-16">
-                    <div class="text-right text-white max-w-2xl">
-                        <h2 class="text-4xl md:text-6xl font-bold fantasy-font">آموزش با جدیدترین متدها</h2>
-                        <p class="mt-4 text-lg md:text-xl">محیطی پویا و مدرن برای یادگیری بهتر و عمیق‌تر.</p>
-                    </div>
-                </div>
             </div>
             <!-- Slide 3 -->
             <div class="swiper-slide">
                 <img src="/images/slide3.png" alt="تصویر جلسه مشاوره" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8 md:p-16">
-                    <div class="text-right text-white max-w-2xl">
-                        <h2 class="text-4xl md:text-6xl font-bold fantasy-font">راهنمای شما تا روز کنکور</h2>
-                        <p class="mt-4 text-lg md:text-xl">مشاوران ما در تمام مراحل همراه شما خواهند بود.</p>
-                    </div>
-                </div>
             </div>
             <!-- Slide 4 -->
             <div class="swiper-slide">
                 <img src="/images/slide4.png" alt="تصویر جلسه مشاوره" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8 md:p-16">
-                    <div class="text-right text-white max-w-2xl">
-                        <h2 class="text-4xl md:text-6xl font-bold fantasy-font">راهنمای شما تا روز کنکور</h2>
-                        <p class="mt-4 text-lg md:text-xl">مشاوران ما در تمام مراحل همراه شما خواهند بود.</p>
-                    </div>
-                </div>
             </div>
             <!-- Slide 5 -->
             <div class="swiper-slide">
                 <img src="/images/slide5.png" alt="تصویر جلسه مشاوره" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8 md:p-16">
-                    <div class="text-right text-white max-w-2xl">
-                        <h2 class="text-4xl md:text-6xl font-bold fantasy-font">راهنمای شما تا روز کنکور</h2>
-                        <p class="mt-4 text-lg md:text-xl">مشاوران ما در تمام مراحل همراه شما خواهند بود.</p>
-                    </div>
-                </div>
             </div>
 
             <div class="swiper-slide">
                 <img src="/images/slide6.png" alt="تصویر جلسه مشاوره" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8 md:p-16">
-                    <div class="text-right text-white max-w-2xl">
-                        <h2 class="text-4xl md:text-6xl font-bold fantasy-font">راهنمای شما تا روز کنکور</h2>
-                        <p class="mt-4 text-lg md:text-xl">مشاوران ما در تمام مراحل همراه شما خواهند بود.</p>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="swiper-button-next"></div>
@@ -198,7 +164,9 @@
                 <span>، برترین در سطح کشور</span>
             </h2>
             <p class="max-w-3xl mx-auto text-lg text-gray-600 leading-relaxed text-justify">
-                ما در آموزشگاه آینده، با بیش از یک دهه تجربه درخشان در زمینه آموزش و مشاوره تحصیلی، به رسالت خود یعنی پرورش استعدادها و هدایت دانش‌آموزان به سوی بهترین دانشگاه‌ها و رشته‌های تحصیلی، متعهد هستیم. با بهره‌گیری از اساتید برجسته، منابع آموزشی به‌روز و یک برنامه‌ریزی منسجم، تلاش می‌کنیم تا هر دانش‌آموز بهترین نسخه از خود را شکوفا کند.
+                در آموزشگاه علمی نگارستان علم، ما با ۳۰ سال سابقه آموزش و پرورش بهره‌گیری از برترین اساتید، منابع آموزشی به‌روز و خدمات پشتیبانی کامل، مسیر یادگیری را برای دانش‌آموزان هموار می‌کنیم.
+                سیستم آموزشی ما بر پایه‌ی LMP ، یادگیری ترمیک، کلاس های VIP و تک درس، مشاوره تخصصی، پانسیون و آزمون رفع اشکال مستمر و پشتیبانی روان‌شناسی طراحی شده است تا هر دانش‌آموز بتواند با آرامش و اعتماد به نفس، به بالاترین سطح توانایی خود برسد.
+                ما باور داریم که آموزش تنها انتقال دانش نیست؛ بلکه ساختن آینده‌ای است که هر روز می‌تواند درخشان‌تر، متفاوت‌تر و الهام‌بخش‌تر باشد
             </p>
         </div>
     </section>
@@ -215,7 +183,7 @@
                 <div class="bg-white/50 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-gray-200">
                     <i class="fas fa-user-graduate text-5xl text-[var(--brand-gold)] mb-4"></i>
                     <p class="text-5xl font-bold text-gray-800 counter" data-target="5000">۰</p>
-                    <h3 class="text-2xl mt-2 text-gray-600">دانش‌آموز موفق</h3>
+                    <h3 class="text-2xl mt-2 text-gray-600">دانش آموز فارغ التحصیل</h3>
                 </div>
                 <div class="bg-white/50 backdrop-blur-sm p-8 rounded-2xl shadow-lg border border-gray-200">
                     <i class="fas fa-trophy text-5xl text-[var(--brand-gold)] mb-4"></i>
@@ -274,7 +242,7 @@
     <section id="features" class="py-16 sm:py-24 gradient-bg">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-[var(--brand-blue)] mb-4">چرا آموزشگاه آینده؟</h2>
+                <h2 class="text-4xl md:text-5xl font-bold text-[var(--brand-blue)] mb-4">چرا آموزشگاه نگارستان علم؟</h2>
                 <p class="max-w-2xl mx-auto text-lg text-gray-600">
                     ویژگی‌هایی که ما را به بهترین انتخاب برای شما تبدیل می‌کند.
                 </p>
@@ -431,10 +399,11 @@
                         <div>
                             <label for="grade" class="block text-gray-700 font-bold mb-2">مقطع تحصیلی</label>
                             <select id="grade" name="grade" class="w-full px-4 py-3 bg-gray-100 border-2 border-transparent rounded-lg focus:outline-none focus:border-cyan-500 transition">
+                                <option>ششم</option>
+                                <option>هفتم تا نهم</option>
                                 <option>دهم</option>
                                 <option>یازدهم</option>
                                 <option>دوازدهم</option>
-                                <option>فارغ‌التحصیل</option>
                             </select>
                         </div>
                         <button type="submit" class="w-full bg-[var(--brand-gold)] text-white font-bold py-3 px-6 rounded-lg hover:brightness-95 transition duration-300 text-lg shadow-md">
@@ -471,15 +440,15 @@
                     <div>
                         <h3 class="text-xl font-bold mb-4">اطلاعات تماس</h3>
                         <ul class="space-y-2 text-gray-400">
-                            <li><i class="fas fa-map-marker-alt ml-2 text-[var(--brand-gold)]"></i>آدرس: تهران، خیابان موفقیت</li>
-                            <li><i class="fas fa-phone ml-2 text-[var(--brand-gold)]"></i>تلفن: ۰۲۱-۱۲۳۴۵۶۷۸</li>
-                            <li><i class="fas fa-envelope ml-2 text-[var(--brand-gold)]"></i>ایمیل: info@ayandeh.com</li>
+                            <li><i class="fas fa-map-marker-alt ml-2 text-[var(--brand-gold)]"></i>آدرس: تهران، خیابان سپهبد قرنی، بالاتر از طالقانی خیابان شاداب غربی پلاک ۱۹ نگارستان علم</li>
+                            <li><i class="fas fa-phone ml-2 text-[var(--brand-gold)]"></i>تلفن: ۰۲۱۸۸۹۱۴۱۰</li>
+                            
                         </ul>
                     </div>
                     <div>
                         <h3 class="text-xl font-bold mb-4">ما را دنبال کنید</h3>
                         <div class="flex space-x-4 space-x-reverse">
-                            <a href="#" class="text-gray-400 hover:text-white text-2xl transition"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.instagram.com/negarestanelm" class="text-gray-400 hover:text-white text-2xl transition"><i class="fab fa-instagram"></i></a>
                             <a href="#" class="text-gray-400 hover:text-white text-2xl transition"><i class="fab fa-telegram"></i></a>
                             <a href="#" class="text-gray-400 hover:text-white text-2xl transition"><i class="fab fa-youtube"></i></a>
                         </div>
@@ -499,7 +468,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         // --- مقداردهی اولیه Swiper.js ---
-        const swiper = new Swiper('.swiper-container', {
+        const swiper = new Swiper('.swiper', {
             loop: true,
             autoplay: {
                 delay: 5000,
