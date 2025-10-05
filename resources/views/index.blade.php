@@ -207,7 +207,7 @@
             <div class="space-y-20">
                 @foreach($classes as $index => $class)
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                        <div class="text-center md:text-right">
+                        <div class="{{ $index%2==1?'md:order-2 ':'' }}text-center md:text-right">
                             <h3 class="text-3xl font-bold text-[var(--brand-blue)] mb-4">{{ $class->title }}</h3>
                             <p class="text-gray-600 leading-loose text-lg">
                                 {{ $class->excerpt }}
