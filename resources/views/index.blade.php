@@ -212,7 +212,7 @@
                             <p class="text-gray-600 leading-loose text-lg">
                                 {{ $class->excerpt }}
                             </p>
-                            <a href="{{ route('single',['post'=>$post->slug]) }}" class="mt-6 inline-block bg-[var(--brand-gold)] text-white font-bold py-3 px-8 rounded-lg hover:brightness-95 transition duration-300 text-lg shadow-md">
+                            <a href="{{ route('single',['post'=>$class->slug]) }}" class="mt-6 inline-block bg-[var(--brand-gold)] text-white font-bold py-3 px-8 rounded-lg hover:brightness-95 transition duration-300 text-lg shadow-md">
                                 مشاهده جزئیات
                             </a>
                         </div>
