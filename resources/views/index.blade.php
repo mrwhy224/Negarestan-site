@@ -1,132 +1,15 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>وب‌سایت آموزشگاه </title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Swiper.js CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <style>
-        /* تعریف متغیرهای رنگی جدید */
-        :root {
-            --brand-gold: #f5b301;
-            --brand-blue: #12324c;
-        }
+@extends('layout')
 
-        /* استفاده از فونت‌های فارسی */
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-        h1, h2, h3, .fantasy-font {
-            font-family: 'Lalezar', cursive;
-        }
-        /* استایل سفارشی برای گرادینت پس‌زمینه */
-        .gradient-bg {
-            background-color: #f8fafc;
-            background-image: radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0);
-            background-size: 20px 20px;
-        }
-        /* استایل سفارشی برای دکمه‌های Swiper */
-        .swiper-button-next, .swiper-button-prev {
-            color: white !important;
-            background-color: rgba(0, 0, 0, 0.3);
-            width: 44px !important;
-            height: 44px !important;
-            border-radius: 50%;
-            transition: background-color 0.3s ease;
-        }
-        .swiper-button-next:hover, .swiper-button-prev:hover {
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        .swiper-button-next::after, .swiper-button-prev::after {
-            font-size: 1.25rem !important;
-            font-weight: bold;
-        }
-        /* استایل برای صفحه‌بندی Swiper */
-        .swiper-pagination-bullet {
-            background-color: white !important;
-            opacity: 0.7;
-        }
-        .swiper-pagination-bullet-active {
-            background-color: var(--brand-gold) !important;
-            opacity: 1;
-        }
-        #typing-effect::after {
-            content: '|';
-            animation: blink 0.7s infinite;
-        }
-        @keyframes blink {
-            50% {
-                opacity: 0;
-            }
-        }
-        .swiper-container {
-            min-height: 40vh; /* حداقل ۴۰٪ ارتفاع صفحه در موبایل */
-            max-height: 60vh; /* حداکثر ۶۰٪ ارتفاع صفحه در موبایل */
-        }
-        @media (min-width: 768px) { /* md breakpoint */
-            .swiper-container {
-                min-height: 50vh; /* حداقل ۵۰٪ ارتفاع صفحه در دسکتاپ */
-                max-height: 75vh; /* حداکثر ۷۵٪ ارتفاع صفحه در دسکتاپ */
-            }
-        }
+@section('title', 'صفحه اصلی - آموزشگاه نگارستان علم')
 
-    </style>
-</head>
-<body class="bg-gray-50 text-gray-800">
+@section('content')
 
-<!-- Header Navigation -->
-<header class="bg-white/80 backdrop-blur-sm shadow-md sticky top-0 z-50">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-        <!-- Left Side: Logo & Navigation -->
-        <div class="flex items-center gap-10">
-            <a href="{{ route('home') }}">
-                <img src="logo.png" alt="logo" class="h-14 w-auto">
-            </a>
-            <nav class="hidden md:flex space-x-8 space-x-reverse">
-                <a href="{{ route('dashboards') }}" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">مشاهده پنل</a>
-                <a href="{{ route('quiz') }}" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">نمونه آزمون</a>
-                <a href="#packages" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">پکیج‌ها</a>
-                <a href="#blog" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">وبلاگ</a>
-                <a href="#contact" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">مشاوره رایگان</a>
-            </nav>
-        </div>
-
-        <!-- Right Side: Auth Buttons & Mobile Menu -->
-        <div class="flex items-center">
-            <!-- Desktop Auth Buttons -->
-            <div class="hidden md:flex items-center space-x-4 space-x-reverse">
-                <a href="{{ route('login') }}" class="text-gray-700 font-semibold hover:text-[var(--brand-gold)] transition duration-300">ورود</a>
-                <a href="{{ route('register') }}" class="bg-[var(--brand-gold)] text-white font-bold py-2 px-5 rounded-lg hover:brightness-95 transition duration-300 shadow-md">ثبت نام</a>
-            </div>
-            <!-- Mobile Menu Button -->
-            <button class="md:hidden text-2xl text-gray-700">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </div>
-</header>
-
-<main>
     <!-- بخش اسلایدر با Swiper.js -->
-    <!-- ارتفاع ثابت (h-96 md:h-[500px]) حذف شد و ارتفاع توسط CSS سفارشی (vh) مدیریت می‌شود. -->
     <section id="slider" class="relative w-full swiper">
         <div class="swiper-wrapper">
             <!-- Slide 1 -->
             <div class="swiper-slide">
                 <img src="/images/slide1.png" alt="تصویر دانش‌آموزان موفق" class="w-full h-full object-cover">
-                
             </div>
             <!-- Slide 2 -->
             <div class="swiper-slide">
@@ -144,7 +27,6 @@
             <div class="swiper-slide">
                 <img src="/images/slide5.png" alt="تصویر جلسه مشاوره" class="w-full h-full object-cover">
             </div>
-
             <div class="swiper-slide">
                 <img src="/images/slide6.png" alt="تصویر جلسه مشاوره" class="w-full h-full object-cover">
             </div>
@@ -203,7 +85,6 @@
                     برای هر هدفی، یک مسیر ویژه طراحی کرده‌ایم.
                 </p>
             </div>
-
             <div class="space-y-20">
                 @foreach($classes as $index => $class)
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -220,8 +101,7 @@
                             <img src="{{ Storage::url($class->image) }}" alt="{{ $class->title }}" class="w-full h-auto object-cover rounded-2xl shadow-xl transform hover:scale-105 transition-transform duration-500">
                         </div>
                     </div>
-
-                    @endforeach
+                @endforeach
             </div>
         </div>
     </section>
@@ -288,24 +168,8 @@
                 </p>
             </div>
             <div class="grid grid-cols-1 lg:grid-cols-6 gap-8 items-start">
+                <div class="lg:col-span-2 lg:order-2 space-y-8">
                 @foreach($posts as $index => $post)
-                    @if($index==0)
-                        <a href="{{ route('single',['post'=>$post->slug]) }}" class="lg:col-span-4 lg:order-1 bg-white rounded-2xl shadow-xl overflow-hidden h-full flex flex-col group transform hover:-translate-y-1 transition-all duration-300">
-                            <div class="relative">
-                                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-96 object-cover">
-                                <div class="absolute top-4 right-4 bg-[var(--brand-gold)] text-white text-sm font-bold py-1 px-3 rounded-full shadow">{{ $post->category->name }}</div>
-                            </div>
-                            <div class="p-6 flex-grow flex flex-col">
-                                <h3 class="text-2xl font-bold text-gray-800 mb-3 group-hover:text-[var(--brand-gold)] transition">{{ $post->title }}</h3>
-                                <p class="text-gray-600 mb-4 flex-grow">{{ $post->excerpt }}</p>
-                                <div class="pt-4 flex justify-between items-center text-sm text-gray-500 border-t border-gray-200 mt-auto">
-                                    <span><i class="fas fa-user ml-2"></i>{{ $post->author->name }}</span>
-                                    <span><i class="fas fa-calendar-alt ml-2"></i>{{ jdate($post->created_at)->format('j F Y') }}</span>
-                                </div>
-                            </div>
-                        </a>
-                    @elseif($index==1)
-                    <div class="lg:col-span-2 lg:order-2 space-y-8">
                         <a href="{{ route('single',['post'=>$post->slug]) }}" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
                             <div class="relative">
                                 <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
@@ -320,44 +184,12 @@
                                 </div>
                             </div>
                         </a>
-                        @if(count($posts) == 2)</div>@endif
-                    @elseif($index==2)
-                        <a href="{{ route('single',['post'=>$post->slug]) }}" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
-                            <div class="relative">
-                                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
-                                <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</div>
-                            </div>
-                            <div class="p-4">
-                                <h4 class="font-bold text-lg text-gray-800 mb-3 group-hover:text-[var(--brand-gold)] transition">{{ $post->title }}</h4>
-                                <p class="text-gray-600 mb-4 flex-grow">{{ $post->excerpt }}</p>
-                                <div class="pt-4 flex justify-between items-center text-sm text-gray-500 border-t border-gray-200 mt-auto">
-                                    <span><i class="fas fa-user ml-2"></i>{{ $post->author->name }}</span>
-                                    <span><i class="fas fa-calendar-alt ml-2"></i>{{ jdate($post->created_at)->format('j F Y') }}</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    @elseif($index==3 || $index==4)
-                        <a href="{{ route('single',['post'=>$post->slug]) }}" class="lg:col-span-3 lg:order-3 bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
-                            <div class="relative">
-                                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-64 object-cover">
-                                <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</div>
-                            </div>
-                            <div class="p-4">
-                                <h4 class="font-bold text-lg text-gray-800 mb-3 group-hover:text-[var(--brand-gold)] transition">{{ $post->title }}</h4>
-                                <p class="text-gray-600 mb-4 flex-grow">{{ $post->excerpt }}</p>
-                                <div class="pt-4 flex justify-between items-center text-sm text-gray-500 border-t border-gray-200 mt-auto">
-                                    <span><i class="fas fa-user ml-2"></i>{{ $post->author->name }}</span>
-                                    <span><i class="fas fa-calendar-alt ml-2"></i>{{ jdate($post->created_at)->format('j F Y') }}</span>
-                                </div>
-                            </div>
-                        </a>
-                    @endif
+                        
                 @endforeach
-
+                </div>
             </div>
             <div class="text-center mt-12">
-                <a href="{{ route('post.list') }}" class="inline-block font-bold py-3 px-8 rounded-lg hover:translate-y-1 transition duration-300 text-lg">
+                <a href="{{ route('blog') }}" class="inline-block font-bold py-3 px-8 rounded-lg hover:translate-y-1 transition duration-300 text-lg">
                     مشاهده بیشتر
                 </a>
             </div>
@@ -403,181 +235,6 @@
             </div>
         </div>
     </section>
-</main>
 
-<!-- فوتر -->
-<footer class="w-full pt-16 bg-gray-100">
-    <div class="max-w-[1140px] w-full mx-auto md:pb-10">
-        <div class="bg-[var(--brand-blue)] text-white pt-12 pb-8 rounded-none md:rounded-2xl shadow-2xl">
-            <div class="container mx-auto px-6">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                    <div>
-                        <img src="logo.png" alt="logo" class="h-24 w-auto mb-4 mx-auto bg-white p-2 rounded-lg">
-                        <p class="text-gray-400">
-                            مسیر موفقیت تحصیلی شما از اینجا آغاز می‌شود. با ما همراه باشید.
-                        </p>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold mb-4">دسترسی سریع</h3>
-                        <ul class="space-y-2">
-                            <li><a href="#about" class="text-gray-400 hover:text-white transition">درباره ما</a></li>
-                            <li><a href="#packages" class="text-gray-400 hover:text-white transition">پکیج‌ها</a></li>
-                            <li><a href="#contact" class="text-gray-400 hover:text-white transition">تماس با ما</a></li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold mb-4">اطلاعات تماس</h3>
-                        <ul class="space-y-2 text-gray-400">
-                            <li><i class="fas fa-map-marker-alt ml-2 text-[var(--brand-gold)]"></i>آدرس: تهران، خیابان سپهبد قرنی، بالاتر از طالقانی خیابان شاداب غربی پلاک ۱۹ نگارستان علم</li>
-                            <li><i class="fas fa-phone ml-2 text-[var(--brand-gold)]"></i>تلفن: ۰۲۱۸۸۹۱۴۱۰</li>
-                            
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold mb-4">ما را دنبال کنید</h3>
-                        <div class="flex space-x-4 space-x-reverse">
-                            <a href="https://www.instagram.com/negarestanelm" class="text-gray-400 hover:text-white text-2xl transition"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="text-gray-400 hover:text-white text-2xl transition"><i class="fab fa-telegram"></i></a>
-                            <a href="#" class="text-gray-400 hover:text-white text-2xl transition"><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-t border-gray-600 text-center pt-6">
-                    <p class="text-white-500">&copy; ۱۴۰۴ تمام حقوق برای آموزشگاه نگارستان علم محفوظ است.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
+@endsection
 
-<!-- Swiper.js JS -->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // --- مقداردهی اولیه Swiper.js ---
-        const swiper = new Swiper('.swiper', {
-            loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-        });
-
-        // --- اسکریپت شمارنده‌ها ---
-        const counters = document.querySelectorAll('.counter');
-        const speed = 200;
-
-        const animateCounters = (entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counter = entry.target;
-                    const target = +counter.getAttribute('data-target');
-                    let count = 0;
-
-                    const updateCount = () => {
-                        const inc = Math.ceil(target / speed);
-                        count = Math.min(count + inc, target);
-                        counter.innerText = count.toLocaleString('fa')+"+ ";
-
-                        if (count < target) {
-                            setTimeout(updateCount, 15);
-                        }
-                    };
-
-                    updateCount();
-                    observer.unobserve(counter);
-                }
-            });
-        };
-
-        const observer = new IntersectionObserver(animateCounters, {
-            root: null,
-            threshold: 0.5
-        });
-
-        counters.forEach(counter => {
-            observer.observe(counter);
-        });
-
-        // --- اسکریپت فرم مشاوره ---
-        const form = document.getElementById('consultationForm');
-        const formMessage = document.getElementById('form-message');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            formMessage.textContent = 'در حال ارسال درخواست...';
-            formMessage.className = 'text-blue-600';
-
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-
-            try {
-                const response = await fetch('/api/user-forms', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                if (!response.ok) {
-                    throw new Error('Server responded with an error');
-                }
-
-                formMessage.textContent = 'درخواست شما با موفقیت ثبت شد! به زودی با شما تماس می‌گیریم.';
-                formMessage.className = 'text-green-600 font-bold';
-                form.reset();
-            } catch (error) {
-                console.error('Error submitting form:', error);
-                formMessage.textContent = 'خطا در ارسال درخواست. لطفا دوباره تلاش کنید.';
-                formMessage.className = 'text-red-600 font-bold';
-            }
-        });
-
-        // --- انیمیشن تایپ ---
-        const typingElement = document.getElementById('typing-effect');
-        if (typingElement) {
-            const words = ["آینده", "موفقیت", "رویاهایتان"];
-            let wordIndex = 0;
-            let charIndex = 0;
-            let isDeleting = false;
-
-            function type() {
-                const currentWord = words[wordIndex];
-
-                if (isDeleting) {
-                    typingElement.textContent = currentWord.substring(0, charIndex - 1);
-                    charIndex--;
-                } else {
-                    typingElement.textContent = currentWord.substring(0, charIndex + 1);
-                    charIndex++;
-                }
-
-                if (!isDeleting && charIndex === currentWord.length) {
-                    isDeleting = true;
-                    setTimeout(type, 2000);
-                } else if (isDeleting && charIndex === 0) {
-                    isDeleting = false;
-                    wordIndex = (wordIndex + 1) % words.length;
-                    setTimeout(type, 500);
-                } else {
-                    const typingSpeed = isDeleting ? 100 : 150;
-                    setTimeout(type, typingSpeed);
-                }
-            }
-            type();
-        }
-    });
-</script>
-</body>
-</html>

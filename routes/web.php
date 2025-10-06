@@ -80,5 +80,6 @@ Route::get('/forgot_password', function () {
 Route::get('/panel/admin', function () {
     return view('panel.posts');
 })->name('admin');
-
+Route::get('/blog', [MainPageController::class, 'blog'])->name('blog');
+Route::get('/blog/{category}', [MainPageController::class, 'blog'])->name('blog.category');
 Route::get('/{post:slug}', [MainPageController::class, 'post'])->name('single');

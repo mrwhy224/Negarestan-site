@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\PostCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,15 +17,47 @@ class MainPageController
         return view('index', ['posts'=>Post::with('category','author')->orderBy('published_at', 'desc')->whereNotNull('published_at')->where('post_category_id', '!=', 4)->limit(5)->get(), 'classes'=> Post::orderBy('published_at', 'desc')->whereNotNull('published_at')->where('post_category_id', 4)->get()]);
     }
 
+    public function blog(Request $request)
+    {
+
+        // شروع کوئری برای مدل Post به همراه روابط
+        $postsQuery = Post::with('author', 'category');
+        $postsQuery->whereNotNull('published_at');
+
+        $postsQuery->whereHas('category', function ($query) {
+            $query->where('id', '!=', 4);
+        });
+        if ($request->has('search') && $request->search != '') {
+            $searchTerm = $request->search;
+            $postsQuery->where(function ($query) use ($searchTerm) {
+                $query->where('title', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('excerpt', 'like', '%' . $searchTerm . '%');
+            });
+        }
+
+        if ($request->has('category') && $request->category != '') {
+            $postsQuery->whereHas('category', function ($query) use ($request) {
+                $query->where('slug', $request->category);
+            });
+        }
+
+        $posts = $postsQuery->orderBy('published_at', 'desc')->paginate(9);
+
+        $categories = PostCategory::where('id', '!=', 4)->get();
+
+        return view('blog', [
+            'posts' => $posts,
+            'categories' => $categories,
+        ]);
+    }
     public function register(Request $request)
     {
-        // اعتبار سنجی داده‌های ورودی با استفاده از قوانین لاراول
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'phone' => 'required|string|regex:/^09[0-9]{9}$/|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ], [
-            // پیام‌های خطای فارسی
+
             'name.required' => 'فیلد نام و نام خانوادگی اجباری است.',
             'phone.required' => 'شماره تلفن اجباری است.',
             'phone.regex' => 'فرمت شماره تلفن صحیح نیست.',
