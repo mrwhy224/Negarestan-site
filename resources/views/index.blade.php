@@ -174,7 +174,7 @@
                     <a href="{{ route('single',['post'=>$post->slug]) }}" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
                         <div class="relative">
                             <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
-                            <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</div>
+                            <div class="absolute top-3 left-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</div>
                         </div>
                         <div class="p-4 flex-grow flex flex-col">
                             <h4 class="font-bold text-lg text-gray-800 mb-3 group-hover:text-[var(--brand-gold)] transition">{{ $post->title }}</h4>
