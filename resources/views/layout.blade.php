@@ -16,13 +16,10 @@
     <!-- Swiper.js CSS -->
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <style>
-        /* تعریف متغیرهای رنگی جدید */
         :root {
             --brand-gold: #f5b301;
             --brand-blue: #12324c;
         }
-
-        /* استفاده از فونت‌های فارسی */
         body {
             font-family: 'Vazirmatn', sans-serif;
             scroll-behavior: smooth;
@@ -31,13 +28,11 @@
         h1, h2, h3, .fantasy-font {
             font-family: 'Lalezar', cursive;
         }
-        /* استایل سفارشی برای گرادینت پس‌زمینه */
         .gradient-bg {
             background-color: #f8fafc;
             background-image: radial-gradient(circle at 1px 1px, #e2e8f0 1px, transparent 0);
             background-size: 20px 20px;
         }
-        /* استایل سفارشی برای دکمه‌های Swiper */
         .swiper-button-next, .swiper-button-prev {
             color: white !important;
             background-color: rgba(0, 0, 0, 0.3);
@@ -53,7 +48,6 @@
             font-size: 1.25rem !important;
             font-weight: bold;
         }
-        /* استایل برای صفحه‌بندی Swiper */
         .swiper-pagination-bullet {
             background-color: white !important;
             opacity: 0.7;
@@ -85,17 +79,15 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-    <!-- فراخوانی هدر -->
     @include('header')
 
-    <!-- بخش اصلی که محتوای هر صفحه در آن قرار می‌گیرد -->
     <main>
         @yield('content')
     </main>
 
-    <!-- فراخوانی فوتر -->
     @include('footer')
 
+    @stack('scripts')
 </body>
 </html>
 
