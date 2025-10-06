@@ -1,47 +1,49 @@
 @extends('layout')
 
-@section('title', 'صفحه اصلی - آموزشگاه نگارستان علم')
+{{-- [نکته] عنوان صفحه به صورت داینامیک از عنوان پست گرفته می‌شود --}}
+@section('title', $post->title . ' - آموزشگاه نگارستان علم')
 
 @section('content')
     <section class="py-12 sm:py-20 bg-white">
         <div class="container mx-auto px-6 max-w-7xl">
             @if($post)
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                    
+
+                    {{-- [اصلاح] محتوای اصلی به ابتدای کد منتقل شد تا در موبایل بالاتر نمایش داده شود --}}
                     <!-- Main Content Area (2/3 width) -->
-                    <div class="lg:col-span-2 order-2 lg:order-1">
-                        
+                    <div class="lg:col-span-2">
+
                         <!-- Featured Image -->
                         @if($post->image)
                             <div class="mb-8">
-                                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-96 object-cover rounded-2xl shadow-xl">
+                                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-auto max-h-[500px] object-cover rounded-2xl shadow-xl">
                             </div>
                         @endif
 
                         <!-- Article Header & Metadata -->
                         <div class="pb-6 border-b border-gray-200 mb-8">
-                            <h1 class="text-4xl md:text-5xl font-extrabold fantasy-font brand-blue-gradient mb-4 leading-snug">{{ $post->title }}</h1>
-                            <div class="flex flex-wrap items-center text-gray-500 text-sm">
+                            <h1 class="text-4xl md:text-5xl font-extrabold fantasy-font text-[var(--brand-blue)] mb-4 leading-snug">{{ $post->title }}</h1>
+                            <div class="flex flex-wrap items-center text-gray-500 text-sm gap-y-2">
                                 <span class="text-gray-600 font-medium ml-4">
                                     <i class="fas fa-user ml-2"></i>نویسنده: <b>{{ $post->author->name }}</b>
                                 </span>
-                                <span class="mx-4 text-gray-400">|</span>
+                                <span class="mx-4 text-gray-400 hidden sm:inline">|</span>
                                 <span class="text-gray-600 font-medium ml-4">
                                     <i class="fas fa-calendar-alt ml-2"></i>تاریخ: {{ jdate($post->created_at)->format('j F Y') }}
                                 </span>
                                 @if($post->category)
-                                    <span class="mx-4 text-gray-400">|</span>
+                                    <span class="mx-4 text-gray-400 hidden sm:inline">|</span>
                                     <span class="bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</span>
                                 @endif
                             </div>
                         </div>
 
                         <!-- Article Content (Server-Side Rendered HTML) -->
-                        <div class="post-content max-w-none text-justify">
-                            {!! $post->processed_content !!}
+                        <div class="post-content prose lg:prose-lg max-w-none text-justify leading-loose">
+                            {!! $post->body !!} {{-- معمولا محتوای کامل در ستون body است --}}
                         </div>
-                        
-                        <!-- Share Buttons (Mockup) -->
+
+                        <!-- Share Buttons -->
                         <div class="mt-12 pt-6 border-t border-gray-200 flex justify-between items-center">
                             <span class="text-lg font-bold text-[var(--brand-blue)]">به اشتراک بگذارید:</span>
                             <div class="flex space-x-4 space-x-reverse">
@@ -50,11 +52,11 @@
                                 <a href="#" class="text-2xl text-gray-600 hover:text-gray-700"><i class="fas fa-link"></i></a>
                             </div>
                         </div>
-                        
+
                         <!-- Comments Section -->
                         <div id="comments" class="mt-16 pt-10 border-t-4 border-[var(--brand-gold)]">
                             <h2 class="text-3xl font-bold text-[var(--brand-blue)] mb-8">نظرات ({{ count($post->comments) }})</h2>
-                            
+
                             <!-- Comment Form -->
                             <form class="space-y-6 bg-gray-50 p-6 rounded-xl shadow-inner mb-10">
                                 <h3 class="text-xl font-bold text-gray-700">نظر خود را بنویسید</h3>
@@ -70,13 +72,13 @@
                                     ارسال نظر
                                 </button>
                             </form>
-                            
-                            <!-- List of Comments (Mockup) -->
+
+                            <!-- List of Comments -->
                             <div class="space-y-8">
-                                @foreach($post->comments as $comment)
+                                @forelse($post->comments as $comment)
                                 <div class="border-b pb-4">
                                     <div class="flex items-center mb-2">
-                                        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg ml-3">{{ Str::substr($comment->author_name, 0, 1); }}</div>
+                                        <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg ml-3">{{ Str::substr($comment->author_name, 0, 1) }}</div>
                                         <div>
                                             <p class="font-bold text-gray-800">{{ $comment->author_name }}</p>
                                             <p class="text-xs text-gray-500">تاریخ: {{ $comment->created_at->diffForHumans() }}</p>
@@ -84,15 +86,17 @@
                                     </div>
                                     <p class="text-gray-700 pr-12">{{ $comment->body }}</p>
                                 </div>
-                                @endforeach
+                                @empty
+                                    <p class="text-gray-500 text-center">هنوز نظری برای این پست ثبت نشده است.</p>
+                                @endforelse
                             </div>
                         </div>
-
                     </div>
-                    
+
+                    {{-- [اصلاح] سایدبار به انتهای کد منتقل شد تا در موبایل پایین‌تر نمایش داده شود --}}
                     <!-- Sidebar (1/3 width) -->
-                    <div class="lg:col-span-1 order-1 lg:order-2 space-y-10">
-                        
+                    <div class="lg:col-span-1 space-y-10">
+
                         <!-- About Author -->
                         <div class="bg-gray-100 p-6 rounded-xl shadow-lg border-t-4 border-[var(--brand-gold)]">
                             <h3 class="text-xl font-bold text-[var(--brand-blue)] mb-4 border-b pb-2">درباره نویسنده</h3>
@@ -107,7 +111,7 @@
                                 {{ $post->author->name }} بیش از ۱۰ سال سابقه مشاوره در زمینه کنکور را دارد و در حوزه برنامه‌ریزی و مدیریت زمان متخصص است.
                             </p>
                         </div>
-                        
+
                         <!-- Related Posts (Mockup) -->
                         <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-400">
                             <h3 class="text-xl font-bold text-[var(--brand-blue)] mb-4 border-b pb-2">مقالات مرتبط</h3>
@@ -123,7 +127,7 @@
                                 </li>
                             </ul>
                         </div>
-                        
+
                         <!-- Call to Action -->
                         <div class="bg-[var(--brand-gold)] p-6 rounded-xl text-white shadow-2xl text-center">
                             <h3 class="text-2xl font-bold mb-3 fantasy-font">مشاوره رایگان</h3>

@@ -22,7 +22,8 @@
                         <h3 class="text-xl font-bold mb-4">اطلاعات تماس</h3>
                         <ul class="space-y-2 text-gray-400">
                             <li><i class="fas fa-map-marker-alt ml-2 text-[var(--brand-gold)]"></i>آدرس: تهران، خیابان سپهبد قرنی، بالاتر از طالقانی خیابان شاداب غربی پلاک ۱۹ نگارستان علم</li>
-                            <li><i class="fas fa-phone ml-2 text-[var(--brand-gold)]"></i>تلفن: ۰۲۱۸۸۹۱۴۱۰</li>
+                            <li><i class="fas fa-phone ml-2 text-[var(--brand-gold)]"></i>۰۲۱۸۸۹۱۴۱۰</li>
+                            <li><i class="fas fa-phone ml-2 text-[var(--brand-gold)]"></i>۰۹۱۲۰۸۱۸۷۰۳</li>
                         </ul>
                     </div>
                     <div>

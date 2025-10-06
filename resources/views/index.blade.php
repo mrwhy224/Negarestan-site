@@ -88,17 +88,19 @@
             <div class="space-y-20">
                 @foreach($classes as $index => $class)
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                        <div class="{{ $index%2==1?'md:order-2 ':'' }}text-center md:text-right">
+                        {{-- [تغییر] تصویر قبل از متن قرار گرفت تا در موبایل ابتدا نمایش داده شود --}}
+                        <div class="{{ $index % 2 == 1 ? 'md:order-2' : '' }}">
+                            <img src="{{ Storage::url($class->image) }}" alt="{{ $class->title }}" class="w-full h-auto object-cover rounded-2xl shadow-xl transform hover:scale-105 transition-transform duration-500">
+                        </div>
+                        {{-- [تغییر] ترتیب متن برای دسکتاپ بر اساس زوج یا فرد بودن ردیف تنظیم شد --}}
+                        <div class="{{ $index % 2 == 1 ? 'md:order-1' : '' }} text-center md:text-right">
                             <h3 class="text-3xl font-bold text-[var(--brand-blue)] mb-4">{{ $class->title }}</h3>
-                            <p class="text-gray-600 leading-loose text-lg">
+                            <p class="text-gray-600 leading-loose text-lg text-justify">
                                 {{ $class->excerpt }}
                             </p>
                             <a href="{{ route('single',['post'=>$class->slug]) }}" class="mt-6 inline-block bg-[var(--brand-gold)] text-white font-bold py-3 px-8 rounded-lg hover:brightness-95 transition duration-300 text-lg shadow-md">
                                 مشاهده جزئیات
                             </a>
-                        </div>
-                        <div>
-                            <img src="{{ Storage::url($class->image) }}" alt="{{ $class->title }}" class="w-full h-auto object-cover rounded-2xl shadow-xl transform hover:scale-105 transition-transform duration-500">
                         </div>
                     </div>
                 @endforeach
@@ -167,15 +169,13 @@
                     نکات مشاوره‌ای، اخبار تحصیلی و راهنمای انتخاب رشته را اینجا بخوانید.
                 </p>
             </div>
-            {{-- [تغییر] کلاس items-stretch برای یکسان سازی ارتفاع سلول‌های گرید اضافه شد --}}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
                 @foreach($posts as $index => $post)
                     <a href="{{ route('single',['post'=>$post->slug]) }}" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
                         <div class="relative">
                             <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
-                            <div class="absolute top-3 left-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</div>
+                            <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</div>
                         </div>
-                        {{-- [تغییر] کلاس‌های flex-grow و flex flex-col برای رشد کردن بخش محتوا و هل دادن فوتر به پایین اضافه شد --}}
                         <div class="p-4 flex-grow flex flex-col">
                             <h4 class="font-bold text-lg text-gray-800 mb-3 group-hover:text-[var(--brand-gold)] transition">{{ $post->title }}</h4>
                             <p class="text-gray-600 mb-4 flex-grow">{{ $post->excerpt }}</p>
