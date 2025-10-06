@@ -167,26 +167,25 @@
                     نکات مشاوره‌ای، اخبار تحصیلی و راهنمای انتخاب رشته را اینجا بخوانید.
                 </p>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-                
+            {{-- [تغییر] کلاس items-stretch برای یکسان سازی ارتفاع سلول‌های گرید اضافه شد --}}
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
                 @foreach($posts as $index => $post)
-                        <a href="{{ route('single',['post'=>$post->slug]) }}" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
-                            <div class="relative">
-                                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
-                                <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</div>
+                    <a href="{{ route('single',['post'=>$post->slug]) }}" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300 h-full flex flex-col">
+                        <div class="relative">
+                            <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-48 object-cover">
+                            <div class="absolute top-3 right-3 bg-[var(--brand-gold)] text-white text-xs font-bold py-1 px-2.5 rounded-full shadow">{{ $post->category->name }}</div>
+                        </div>
+                        {{-- [تغییر] کلاس‌های flex-grow و flex flex-col برای رشد کردن بخش محتوا و هل دادن فوتر به پایین اضافه شد --}}
+                        <div class="p-4 flex-grow flex flex-col">
+                            <h4 class="font-bold text-lg text-gray-800 mb-3 group-hover:text-[var(--brand-gold)] transition">{{ $post->title }}</h4>
+                            <p class="text-gray-600 mb-4 flex-grow">{{ $post->excerpt }}</p>
+                            <div class="pt-4 flex justify-between items-center text-sm text-gray-500 border-t border-gray-200 mt-auto">
+                                <span><i class="fas fa-user ml-2"></i>{{ $post->author->name }}</span>
+                                <span><i class="fas fa-calendar-alt ml-2"></i>{{ jdate($post->created_at)->format('j F Y') }}</span>
                             </div>
-                            <div class="p-4">
-                                <h4 class="font-bold text-lg text-gray-800 mb-3 group-hover:text-[var(--brand-gold)] transition">{{ $post->title }}</h4>
-                                <p class="text-gray-600 mb-4 flex-grow">{{ $post->excerpt }}</p>
-                                <div class="pt-4 flex justify-between items-center text-sm text-gray-500 border-t border-gray-200 mt-auto">
-                                    <span><i class="fas fa-user ml-2"></i>{{ $post->author->name }}</span>
-                                    <span><i class="fas fa-calendar-alt ml-2"></i>{{ jdate($post->created_at)->format('j F Y') }}</span>
-                                </div>
-                            </div>
-                        </a>
-                        
+                        </div>
+                    </a>
                 @endforeach
-                </div>
             </div>
             <div class="text-center mt-12">
                 <a href="{{ route('blog') }}" class="inline-block font-bold py-3 px-8 rounded-lg hover:translate-y-1 transition duration-300 text-lg">
