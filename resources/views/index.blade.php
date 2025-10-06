@@ -167,8 +167,8 @@
                     نکات مشاوره‌ای، اخبار تحصیلی و راهنمای انتخاب رشته را اینجا بخوانید.
                 </p>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-6 gap-8 items-start">
-                <div class="lg:col-span-2 lg:order-2 space-y-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                
                 @foreach($posts as $index => $post)
                         <a href="{{ route('single',['post'=>$post->slug]) }}" class="bg-white rounded-2xl shadow-lg overflow-hidden block group transform hover:-translate-y-1 transition-all duration-300">
                             <div class="relative">
