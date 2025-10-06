@@ -39,8 +39,8 @@
                         </div>
 
                         <!-- Article Content (Server-Side Rendered HTML) -->
-                        <div class="post-content prose lg:prose-lg max-w-none text-justify leading-loose">
-                            {!! $post->body !!} {{-- معمولا محتوای کامل در ستون body است --}}
+                        <div class="post-content max-w-none text-justify">
+                            {!! $post->processed_content !!}
                         </div>
 
                         <!-- Share Buttons -->
