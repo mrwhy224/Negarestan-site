@@ -1,5 +1,5 @@
 <!-- فوتر -->
-<footer class="w-full pt-16 bg-gray-100">
+<footer class="w-full pt-16 bg-gray-100 gradient-bg">
     <div class="max-w-[1140px] w-full mx-auto md:pb-10">
         <div class="bg-[var(--brand-blue)] text-white pt-12 pb-8 rounded-none md:rounded-2xl shadow-2xl">
             <div class="container mx-auto px-6">
