@@ -7,8 +7,6 @@
                 <img src="{{ asset('logo.png') }}" alt="logo" class="h-14 w-auto">
             </a>
             <nav class="hidden md:flex space-x-8 space-x-reverse">
-                <a href="{{ route('dashboards') }}" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">مشاهده پنل</a>
-                <a href="{{ route('quiz') }}" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">نمونه آزمون</a>
                 <a href="#packages" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">پکیج‌ها</a>
                 <a href="#blog" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">وبلاگ</a>
                 <a href="#contact" class="text-gray-600 hover:text-[var(--brand-gold)] transition duration-300">مشاوره رایگان</a>
@@ -45,7 +43,7 @@
             <a href="#packages" class="text-gray-700 hover:text-[var(--brand-gold)] transition duration-300">پکیج‌ها</a>
             <a href="#blog" class="text-gray-700 hover:text-[var(--brand-gold)] transition duration-300">وبلاگ</a>
             <a href="#contact" class="text-gray-700 hover:text-[var(--brand-gold)] transition duration-300">مشاوره رایگان</a>
-            
+
             <div class="border-t border-gray-200 pt-6 space-y-4">
                 <a href="{{ route('login') }}" class="block text-center w-full bg-gray-100 text-gray-800 font-semibold py-3 px-5 rounded-lg hover:bg-gray-200 transition duration-300">ورود</a>
                 <a href="{{ route('register') }}" class="block text-center w-full bg-[var(--brand-gold)] text-white font-bold py-3 px-5 rounded-lg hover:brightness-95 transition duration-300 shadow-md">ثبت نام</a>
