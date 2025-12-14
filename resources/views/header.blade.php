@@ -38,8 +38,6 @@
             </button>
         </div>
         <nav class="flex flex-col space-y-6 text-lg">
-            <a href="{{ route('dashboards') }}" class="text-gray-700 hover:text-[var(--brand-gold)] transition duration-300">مشاهده پنل</a>
-            <a href="{{ route('quiz') }}" class="text-gray-700 hover:text-[var(--brand-gold)] transition duration-300">نمونه آزمون</a>
             <a href="#packages" class="text-gray-700 hover:text-[var(--brand-gold)] transition duration-300">پکیج‌ها</a>
             <a href="#blog" class="text-gray-700 hover:text-[var(--brand-gold)] transition duration-300">وبلاگ</a>
             <a href="#contact" class="text-gray-700 hover:text-[var(--brand-gold)] transition duration-300">مشاوره رایگان</a>
