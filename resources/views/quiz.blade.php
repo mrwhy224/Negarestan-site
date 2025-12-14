@@ -92,31 +92,7 @@
             const thankYouMessage = document.getElementById('thank-you-message');
             const quizWrapper = document.getElementById('quiz-wrapper');
 
-            const quizData = {
-                title: "آزمون تعیین سطح ادبیات",
-                questions: [
-                    {
-                        type: 'single',
-                        question: "کدام یک از آثار زیر متعلق به فردوسی است؟",
-                        options: ["گلستان", "شاهنامه", "بوستان", "مثنوی معنوی"],
-                    },
-                    {
-                        type: 'single',
-                        question: "معنی واژه «بحت» کدام است؟",
-                        options: ["شانس", "یقین", "شک", "هرگز"],
-                    },
-                    {
-                        type: 'multiple',
-                        question: "کدام یک از موارد زیر از آرایه‌های ادبی هستند؟ (چند گزینه را انتخاب کنید)",
-                        options: ["تشبیه", "ضرب‌المثل", "کنایه", "استعاره"],
-                    },
-                    {
-                        type: 'single',
-                        question: "کدام شاعر به «شاعر آینه‌ها» معروف است؟",
-                        options: ["سهراب سپهری", "فروغ فرخزاد", "احمد شاملو", "مهدی اخوان ثالث"],
-                    },
-                ]
-            };
+            const quizData = @json($quizData);
 
             let currentQuestionIndex = 0;
             const userAnswers = quizData.questions.map(q => q.type === 'multiple' ? [] : null);
