@@ -80,11 +80,11 @@ class MainPageController
             'role' => 'user',
             'password' => Hash::make($request->password),
         ]);
-
-
-        // بازگرداندن پاسخ موفقیت
+        Auth::login($user);
+        $redirectUrl = $request->input('redirect_to', route('dashboard'));
         return response()->json([
-            'message' => 'ثبت نام شما با موفقیت انجام شد! به آموزشگاه آینده خوش آمدید.'
+            'message' => 'ثبت نام شما با موفقیت انجام شد! به آموزشگاه آینده خوش آمدید.',
+            'redirect_to' => $redirectUrl,
         ], 201); // Created
     }
 
