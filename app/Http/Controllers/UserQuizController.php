@@ -6,6 +6,7 @@ use App\Models\Answer;
 use App\Models\Option;
 use App\Models\Quiz;
 use App\Models\QuizAttempt;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
