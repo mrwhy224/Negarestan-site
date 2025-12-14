@@ -100,6 +100,9 @@
             <span class="btn-spinner hidden animate-spin"><i class="fa-solid fa-circle-notch"></i></span>
           </button>
         </div>
+          @if(request()->has('redirect_to'))
+              <input type="hidden" name="redirect_to" value="{{ request()->get('redirect_to') }}">
+          @endif
       </form>
 
       <p class="text-center text-sm text-gray-500 mt-8">
