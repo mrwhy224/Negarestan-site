@@ -81,7 +81,7 @@ class MainPageController
             'password' => Hash::make($request->password),
         ]);
         Auth::login($user);
-        $redirectUrl = $request->input('redirect_to', route('dashboard'));
+        $redirectUrl = $request->input('redirect_to', route('home'));
         return response()->json([
             'message' => 'ثبت نام شما با موفقیت انجام شد! به آموزشگاه آینده خوش آمدید.',
             'redirect_to' => $redirectUrl,
