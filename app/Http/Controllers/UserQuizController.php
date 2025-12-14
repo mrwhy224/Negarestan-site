@@ -11,6 +11,23 @@ class UserQuizController
     {
         if (!Auth::check())
             return redirect()->route('register', ['redirect_to' => url()->current()]);
-        return view('quiz', ['quiz'=>$quiz]);
+        $quiz->load(['questions.options']);
+
+
+        $quizData = [
+            'title' => $quiz->title,
+            'questions' => $quiz->questions->map(function ($question) {
+                return [
+                    'id' => $question->id,
+                    'type' => $question->type,
+                    'question' => $question->title,
+                    'options' => $question->options->pluck('text')->toArray(),
+                ];
+            })->toArray()
+        ];
+        return view('quiz', [
+            'quiz' => $quiz,
+            'quizData' => $quizData
+        ]);
     }
 }
