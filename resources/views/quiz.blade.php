@@ -66,7 +66,11 @@
                         <!-- Navigation -->
                         <div id="quiz-navigation" class="flex justify-between items-center mt-8">
                             <button id="next-btn" class="bg-cyan-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-cyan-700 transition">بعدی</button>
-                            <button id="submit-btn" class="bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700 transition hidden">ارسال نتایج</button>
+                            <button id="submit-btn" class="bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700 transition hidden flex items-center justify-center">
+                                <span id="submit-text">ارسال نتایج</span>
+
+                                <i id="submit-spinner" class="fas fa-spinner fa-spin hidden mr-2"></i>
+                            </button>
                             <button id="prev-btn" class="bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded-lg hover:bg-gray-400 transition disabled:opacity-50 disabled:cursor-not-allowed">قبلی</button>
                         </div>
                     </div>
