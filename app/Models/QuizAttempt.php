@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class QuizAttempt extends Model
 {
-    protected $fillable = ['user_id', 'quiz_id', 'score'];
+    protected $fillable = ['user_id', 'quiz_id'];
 
     /**
      * An attempt belongs to a user.
