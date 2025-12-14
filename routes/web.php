@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MainPageController::class, 'homePage'])->name('home');
 
 Route::get('/quiz/{quiz}', [\App\Http\Controllers\UserQuizController::class, 'index'])->name('quiz');
+Route::post('/quiz/{quiz}', [\App\Http\Controllers\UserQuizController::class, 'submit'])->name('quiz.submit');
 
 Route::prefix('panel')->middleware([\App\Http\Middleware\IsAdmin::class])->group(function () {
     Route::get('/', [\App\Http\Controllers\PanelController::class, 'index'])->name('dashboards');

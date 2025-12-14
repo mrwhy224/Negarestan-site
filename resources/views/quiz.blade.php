@@ -93,6 +93,9 @@
             const quizWrapper = document.getElementById('quiz-wrapper');
 
             const quizData = @json($quizData);
+            const quizId = {{ $quiz->id }};
+
+            const submitUrl = "{{ route('quiz.submit', $quiz->id) }}";
 
             let currentQuestionIndex = 0;
             const userAnswers = quizData.questions.map(q => q.type === 'multiple' ? [] : null);
@@ -179,17 +182,59 @@
                 }
             });
 
-            submitBtn.addEventListener('click', () => {
-                // Update progress bar to 100% on submit
+            submitBtn.addEventListener('click', async () => {
+                // ۱. تغییر ظاهر دکمه (Loading)
+                submitBtn.disabled = true;
+                submitText.textContent = 'در حال ارسال...';
+                submitSpinner.classList.remove('hidden');
                 progressBar.style.width = `100%`;
 
-                // Show thank you message after a short delay
-                setTimeout(() => {
-                    quizWrapper.classList.add('hidden');
-                    thankYouMessage.classList.remove('hidden');
-                }, 500);
+                // ۲. آماده‌سازی داده‌ها برای ارسال
+                // ما باید جواب‌ها را به ID سوالات وصل کنیم
+                const payload = {
+                    quiz_id: quizId,
+                    answers: quizData.questions.map((question, index) => {
+                        return {
+                            question_id: question.id,
+                            selected_options: userAnswers[index] // ممکن است استرینگ باشد یا آرایه
+                        };
+                    })
+                };
 
-                console.log("User Answers:", userAnswers);
+                try {
+                    // ۳. ارسال درخواست به لاراول
+                    const response = await fetch(submitUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    // ۴. بررسی پاسخ
+                    if (response.ok) {
+                        const result = await response.json();
+                        console.log('Success:', result);
+                        setTimeout(() => {
+                            quizWrapper.classList.add('hidden');
+                            thankYouMessage.classList.remove('hidden');
+                        }, 500);
+                    } else {
+                        console.error('Server Error:', response.status);
+                        alert('مشکلی در ثبت آزمون پیش آمد. لطفا دوباره تلاش کنید.');
+                        submitBtn.disabled = false;
+                        submitText.textContent = 'ارسال نتایج';
+                        submitSpinner.classList.add('hidden');
+                    }
+
+                } catch (error) {
+                    console.error('Network Error:', error);
+                    alert('خطای شبکه رخ داد.');
+                    submitBtn.disabled = false;
+                    submitText.textContent = 'ارسال نتایج';
+                    submitSpinner.classList.add('hidden');
+                }
             });
 
             quizTitle.textContent = quizData.title;

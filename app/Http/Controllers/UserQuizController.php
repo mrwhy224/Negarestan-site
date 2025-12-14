@@ -30,4 +30,9 @@ class UserQuizController
             'quizData' => $quizData
         ]);
     }
+
+    public function submit(Quiz $quiz)
+    {
+
+    }
 }
