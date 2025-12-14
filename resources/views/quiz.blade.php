@@ -89,6 +89,8 @@
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
             const submitBtn = document.getElementById('submit-btn');
+            const submitText = document.getElementById('submit-text');
+            const submitSpinner = document.getElementById('submit-spinner');
             const thankYouMessage = document.getElementById('thank-you-message');
             const quizWrapper = document.getElementById('quiz-wrapper');
 
