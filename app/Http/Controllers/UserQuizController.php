@@ -12,7 +12,7 @@ class UserQuizController
         if (!Auth::check())
             return redirect()->route('register', ['redirect_to' => url()->current()]);
         $quiz->load(['questions.options']);
-        
+
 
         $quizData = [
             'title' => $quiz->title,
@@ -20,7 +20,7 @@ class UserQuizController
                 return [
                     'id' => $question->id,
                     'type' => $question->type,
-                    'question' => $question->title,
+                    'question' => $question->text,
                     'options' => $question->options->pluck('text')->toArray(),
                 ];
             })->toArray()
