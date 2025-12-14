@@ -12,11 +12,7 @@ class UserQuizController
         if (!Auth::check())
             return redirect()->route('register', ['redirect_to' => url()->current()]);
         $quiz->load(['questions.options']);
-        dd([
-            'Quiz Attributes' => $quiz->getAttributes(), // نام ستون‌های کوییز را نشان می‌دهد
-            'First Question' => $quiz->questions->first(), // اولین سوال را (اگر باشد) نشان می‌دهد
-            'Raw Relations' => $quiz->relations,
-        ]);
+        
 
         $quizData = [
             'title' => $quiz->title,
